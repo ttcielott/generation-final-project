@@ -2,11 +2,11 @@
 
 # - Team Member's -
 ----------
-**-Sam Feighery**
-**-Kendrick Filho**
-**-Ife Adeoti**
-**-Dana Kim**
-**-Rishi Ravindran**
+**-Sam Feighery**<br>
+**-Kendrick Filho**<br>
+**-Ife Adeoti**<br>
+**-Dana Kim**<br>
+**-Rishi Ravindran**<br>
 ----------
 
 
