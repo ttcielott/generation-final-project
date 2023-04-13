@@ -1,9 +1,9 @@
 # moccha-madness-final-project
 
-# - Team -
+# - Team Member's -
 ----------
-Sam Feighery,
-Kendrick Filho,
-Ife Adeoti,
-Dana Kim,
+Sam Feighery
+Kendrick Filho
+Ife Adeoti
+Dana Kim
 Rishi Ravindran
