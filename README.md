@@ -28,11 +28,12 @@ This is a software for a client, cafe business owner with multiple offline store
 
 ## Authors
 ----------
+Developers
 - Sam Feighery   [Linkedin](https://www.linkedin.com/in/sam-feighery-b5265126/) | [Github](https://github.com/Sam-Feighery)<br>
 - Kendrick Filho   [Linkedin](https://www.linkedin.com/in/misael-filho/) | [Github](https://github.com/mkmfilho/)<br>
-- Ife Adeoti   [Linkedin]() | [Github]()<br>
+- Ife Adeoti  [Github](https://github.com/S44WSA)<br>
 - Dana Kim   [Linkedin](https://www.linkedin.com/in/haneul-kim-987b7744/) | [Github](https://github.com/ttcielott/)<br>
-- Rishi Ravindran   [Linkedin]() | [Github]()<br>
+- Rishi Ravindran  [Github](https://github.com/Rishi06R)<br>
 ----------
 
 
