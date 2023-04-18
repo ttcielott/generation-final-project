@@ -1,20 +1,19 @@
 version: "3.8"
 services:
   db:
-    image: mysql
-    container_name: mysql_container
+    image: postgres
+    container_name: postgresql_container
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: "${mysql_pass}"
+      POSTGRES_USER: "${postgresql_user}"
+      POSTGRES_PASSWORD: "${postgresql_pass}"
+      POSTGRES_DB: "${postgresql_db}"
     ports:
-      - "3306:3306"
-    volumes:
-      - type: volume
-        source: my_db_files
-        target: /var/lib/mysql
+      - "5432:5432"
+
   adminer:
     image: adminer
-    container_name: adminer_container
+    container_name: adminer_container_postgresql
     restart: always
     ports:
       - 8080:8080
