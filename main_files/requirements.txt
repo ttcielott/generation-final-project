@@ -3,3 +3,4 @@ python-dotenv==0.15.0
 
 # pip install psycopg2 - To install the library
 # pip install python-dotenv - To install the library
+# pip install pandas
