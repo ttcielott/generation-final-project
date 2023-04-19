@@ -33,7 +33,7 @@ Developers
 - Kendrick Filho   [Linkedin](https://www.linkedin.com/in/misael-filho/) | [Github](https://github.com/mkmfilho/)<br>
 - Ife Adeoti  [Github](https://github.com/S44WSA)<br>
 - Dana Kim   [Linkedin](https://www.linkedin.com/in/haneul-kim-987b7744/) | [Github](https://github.com/ttcielott/)<br>
-- Rishi Ravindran  [Github](https://github.com/Rishi06R)<br>
+- Rishi Ravindran  [Linkedin](https://www.linkedin.com/in/rishiram-ravindran-a00127238/) | [Github](https://github.com/Rishi06R)<br>
 ----------
 
 
