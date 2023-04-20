@@ -33,7 +33,24 @@ def extract_without(file_path, column_numbers):
 
     return list_of_new_data_list
 
+def split_into_order(list_of_data_list, column_number):
+    list_of_new_data_list =[]
+    for data in list_of_data_list:
+        updating_col = data[column_number]
+        orders_list = updating_col.split(",")
+
+        if len(orders_list) == 1:
+            list_of_new_data_list.append(data)
+        elif len(orders_list) > 1:
+            for single_order in orders_list:
+                original_data = data.copy()
+                original_data[column_number] = single_order
+                list_of_new_data_list.append(original_data)
+
+    return list_of_new_data_list
 
         
 if __name__ == "__main__":
-    print(extract_without('../data/chesterfield_25-08-2021_09-00-00.csv', [6]))
+    new_data = extract_without('../data/chesterfield_25-08-2021_09-00-00.csv', [6])
+
+    print(split_into_order(new_data, 3))
