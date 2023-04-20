@@ -79,3 +79,4 @@ def create_db_tables(conn, cursor):
     cursor.close()
     conn.close()
 
+create_db_tables(conn, cursor)
