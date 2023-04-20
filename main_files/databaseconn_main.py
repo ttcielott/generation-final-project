@@ -11,7 +11,8 @@ port = os.getenv("postgresql_port")
 password = os.getenv("postgresql_pass")
 
 # Connect to the database
-conn = psycopg2.connect(
+def database_connection(dbname, user, password, host, port):
+    conn = psycopg2.connect(
         dbname=dbname,
         user=user,
         password=password,
@@ -19,4 +20,5 @@ conn = psycopg2.connect(
         port=port
     )
 
-cursor = conn.cursor()
+    cursor = conn.cursor()
+    return conn,cursor

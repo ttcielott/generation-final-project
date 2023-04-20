@@ -1,16 +1,20 @@
-import pymysql
 import os
 from dotenv import load_dotenv
-from databaseconn_main import *
+from databaseconn_main import database_connection
 
 load_dotenv('../database/.env')  # load environment variables from .env file
 
-HOST = os.environ.get("postgresql_host")
-USER = os.environ.get("postgresql_user")
-PASSWORD = os.environ.get("postgresql_pass")
-WAREHOUSE_DB_NAME = os.environ.get("postgresql_db")
+dbname = os.getenv("postgresql_db")
+user = os.getenv("postgresql_user")
+host = os.getenv("postgresql_host")
+port = os.getenv("postgresql_port")
+password = os.getenv("postgresql_pass")
 
-def create_db_tables(connection, cursor):
+
+conn,cursor = database_connection(dbname, user, password, host, port)
+
+
+def create_db_tables(conn, cursor):
     
     create_products_table = \
     """
@@ -71,7 +75,7 @@ def create_db_tables(connection, cursor):
     cursor.execute(create_customers_table)
     cursor.execute(create_payments_table)
     cursor.execute(create_orders_table)
-    connection.commit()
+    conn.commit()
     cursor.close()
-    connection.close()
+    conn.close()
 
