@@ -1,8 +1,10 @@
 import pymysql
 import os
 from dotenv import load_dotenv
+from databaseconn_main import *
 
-load_dotenv()
+load_dotenv('../database/.env')  # load environment variables from .env file
+
 HOST = os.environ.get("postgresql_host")
 USER = os.environ.get("postgresql_user")
 PASSWORD = os.environ.get("postgresql_pass")

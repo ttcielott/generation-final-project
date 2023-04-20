@@ -5,10 +5,11 @@ import psycopg2
 import pyfiglet
 from functions_main import *
 from dotenv import load_dotenv
+from table_creation import *
 from unittesting_main import *
 from databaseconn_main import *
 
-load_dotenv()  # load environment variables from .env file
+load_dotenv('../database/.env')  # load environment variables from .env file
 
 while True:
     # Connect to the database

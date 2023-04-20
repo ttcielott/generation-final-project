@@ -43,3 +43,16 @@ git status
 git add
 git commit
 ```
+
+### Comands to setup docker
+```
+cd database
+docker compose up -d
+```
+
+### Comands to run the application
+```
+cd main_files
+py main_display.py
+```
+
