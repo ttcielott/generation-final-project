@@ -50,9 +50,28 @@ cd database
 docker compose up -d
 ```
 
+### Creating venv 
+```
+Windows - py -3.10 -m venv .venv
+Mac - python3.10 -m venv .venv
+```
+
+
+### Activating venv
+```
+Windows - .venv/Scripts/Activate.bat
+Mac - source .venv/bin/activate
+``` 
+
+
+### Install packages from requirments 
+```
+cd main_files
+pip install -r requirements.txt
+```
+
 ### Comands to run the application
 ```
 cd main_files
 py main_display.py
 ```
-
