@@ -19,7 +19,7 @@ def create_db_tables(conn, cursor):
     create_products_table = \
     """
     CREATE TABLE IF NOT EXISTS products(
-        product_id int NOT NULL,
+        product_id serial NOT NULL,
         product_name varchar(255) NOT NULL,
         product_size varchar(50) NOT NULL,
         product_price decimal(19,2) NOT NULL,
@@ -29,7 +29,7 @@ def create_db_tables(conn, cursor):
     create_branches_table = \
     """
         CREATE TABLE IF NOT EXISTS branches(
-            branch_id int NOT NULL,
+            branch_id serial NOT NULL,
             branch_name varchar(20) NOT NULL,
             PRIMARY KEY (branch_id)
         );
@@ -37,7 +37,7 @@ def create_db_tables(conn, cursor):
     create_customers_table = \
     """
     CREATE TABLE IF NOT EXISTS customers(
-        customer_id int NOT NULL,
+        customer_id serial NOT NULL,
         customer_name varchar(255) NOT NULL,
         customer_credit_card varchar(16) NOT NULL,
         PRIMARY KEY (customer_id)
@@ -46,7 +46,7 @@ def create_db_tables(conn, cursor):
     create_payments_table = \
     """
         CREATE TABLE IF NOT EXISTS payments(
-            payment_method_id int NOT NULL,
+            payment_method_id serial NOT NULL,
             payment_method_name varchar(10),
             PRIMARY KEY (payment_method_id)
         );
@@ -54,7 +54,7 @@ def create_db_tables(conn, cursor):
     create_orders_table = \
     """
     CREATE TABLE IF NOT EXISTS orders(
-        order_id SERIAL NOT NULL,
+        order_id serial NOT NULL,
         branch_id int NOT NULL,
         customer_id int NOT NULL,
         product_id int NOT NULL,
