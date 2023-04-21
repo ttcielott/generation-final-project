@@ -1,20 +1,14 @@
 import os
 from dotenv import load_dotenv
-from databaseconn_main import database_connection
+from databaseconn_main import *
 from functions_main import transform_branch_file
 
-load_dotenv('../database/.env')  # load environment variables from .env file
 
-dbname = os.getenv("postgresql_db")
-user = os.getenv("postgresql_user")
-host = os.getenv("postgresql_host")
-port = os.getenv("postgresql_port")
-password = os.getenv("postgresql_pass")
-
+# create a database connnection
 conn, cursor = database_connection(dbname, user, password, host, port)
 
 # save raw csv file path as a list
-branch_filepaths = ['../data/chesterfield_25-08-2021_09-00-00.csv', '../data/leeds_01-01-2020_09-00-00.csv']
+branch_filepaths = ['../csv_files/chesterfield_25-08-2021_09-00-00.csv', '../csv_files/leeds_01-01-2020_09-00-00.csv']
     
 # apply all transformation functions in order and combine them into one list
 transformed_branch_data =[]
@@ -23,15 +17,34 @@ for filepath in branch_filepaths:
 
 
 def get_unique_product_n_price(list_of_data_list):
+      """get the list of unique product infomation lists.
+
+    Args:
+        list_of_data_list: a list of list that contains transformed data
+
+    Returns:
+        a list of product infomrmation 
+        e.g. [[['Chai latte', 'Large', '2.60'], 
+               ['Chai latte', 'Regular', '2.30'], 
+               ['Filter coffee', 'Large', '1.80']]
+    """
       product_rows =[]
+      # loop over all product information in transformed data
       for row in list_of_data_list:
-            
+
+            # select product name, product size, product price
+            # save them in a list
             product_row = [row[-3], row[3], row[-2]]
+
+            # append product_row to product_rows
             product_rows.append(product_row)
       
       # remove duplicates
-      unique_product_row = set(map(tuple, product_rows))
-      unique_product_info = list(map(list, unique_product_row))
+      unique_product_row = set(map(tuple, product_rows)) # e.g. {('Filter coffee', 'Large', '1.80'), ('Filter coffee', 'Large', '1.80')}
+      unique_product_info = list(map(list, unique_product_row)) # e.g. [['Filter coffee', 'Large', '1.80'], ['Filter coffee', 'Large', '1.80']]
+
+      # sort the data
+      unique_product_info.sort()
 
       return unique_product_info
 
@@ -53,7 +66,6 @@ def load_product(conn, cursor, product_info, tablename):
 
 if __name__ == '__main__':
       product_info = get_unique_product_n_price(transformed_branch_data)
-      print(product_info)
       load_product(conn, cursor, product_info, 'products')
 
 
