@@ -1,7 +1,6 @@
+pandas==2.0.0
+pyfiglet==0.8.post1
 psycopg2==2.9.6
 python-dotenv==0.15.0
 
-# pip install psycopg2 - To install the library
-# pip install python-dotenv - To install the library
-# pip install pandas
-# pip requeriments.txt
+# pip -r requeriments.txt
