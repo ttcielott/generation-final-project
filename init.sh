@@ -9,17 +9,21 @@ cd database
 docker compose up -d
 
 # cerate a virtual environment
-if [[ $var == 'W']]
+if [[ $var == 'W' ]]
+then
     py -3.10 -m venv .venv
 
     # activate the virtual environment
     .venv/Scripts/Activate.bat
-else
-    python3.10 -m venv .venv
-    source .venv/bin/activate
+
+elif [[ $var == 'L' ]]
 then
-    echo "a virtural environment was created and activated"
+    python3.10 -m venv .venv
+    current_dir=$(pwd)
+    source $current_dir/.venv/bin/activate
+
 fi
+echo "a virtural environment was created and activated"
     
 # install packages from requirements.txt
 cd main_files
