@@ -27,14 +27,14 @@ This is a software for a client, cafe business owner with multiple offline store
 
 
 ## Authors
-----------
+
 Developers
 - Sam Feighery   [Linkedin](https://www.linkedin.com/in/sam-feighery-b5265126/) | [Github](https://github.com/Sam-Feighery)<br>
 - Kendrick Filho   [Linkedin](https://www.linkedin.com/in/misael-filho/) | [Github](https://github.com/mkmfilho/)<br>
 - Ife Adeoti  [Github](https://github.com/S44WSA)<br>
 - Dana Kim   [Linkedin](https://www.linkedin.com/in/haneul-kim-987b7744/) | [Github](https://github.com/ttcielott/)<br>
 - Rishi Ravindran  [Linkedin](https://www.linkedin.com/in/rishiram-ravindran-a00127238/) | [Github](https://github.com/Rishi06R)<br>
-----------
+
 
 
 ### Some basic Git commands are:
@@ -43,39 +43,46 @@ git status
 git add
 git commit
 ```
+## Initial Setup
+----------
+### Run Bash Script file
+After git clone this repository, you can run the following bash script file for initial setup (docker compose, creation of a virtual environment, package installation, and activation of a virtual environment).
 
-### Comands to setup docker
+```
+chmod +x init.sh
+./init.sh
+```
+
+### OR Run Command Line Step by Step
+**1. Commands to setup docker**
 ```
 cd database
 docker compose up -d
 ```
 
-### Creating venv 
+**2. Creating venv**
 ```
 Windows - py -3.10 -m venv .venv
 Mac - python3.10 -m venv .venv
 ```
 
-
-### Activating venv
+**3. Activating venv**
 ```
 Windows - .venv/Scripts/Activate.bat
 Mac - source .venv/bin/activate
 ``` 
 
 
-### Install packages from requirments 
+**4. Installing packages from requirments**
 ```
 cd main_files
 pip install -r requirements.txt
 ```
 
-### Comands to run the application
+Note: if you see an error installing the package, `psycopg2==2.9.6`, please open `requirements.txt` file and replace it with `psycopg-binary` and re-run `pip install -r requirements.txt`.
+
+## Command to run a file as module in python
 ```
-cd main_files
-py main_display.py
-```
-### To run a file as module in python
-```
-eg.: py -m main_files.table_loading_orders
+Windows - py -m <folder name>.<filename only without extension i.e .py>
+Mac - python -m m<folder name>.<filename only without extension i.e .py>
 ```
