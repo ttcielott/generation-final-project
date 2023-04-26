@@ -75,3 +75,7 @@ pip install -r requirements.txt
 cd main_files
 py main_display.py
 ```
+### To run a file as module in python
+```
+eg.: py -m main_files.table_loading_orders
+```

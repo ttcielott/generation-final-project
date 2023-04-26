@@ -2,7 +2,7 @@ import os
 import psycopg2
 from dotenv import load_dotenv
 
-load_dotenv('../database/.env')  # load environment variables from .env file
+load_dotenv('database/.env')  # load environment variables from .env file
 
 dbname = os.getenv("postgresql_db")
 user = os.getenv("postgresql_user")

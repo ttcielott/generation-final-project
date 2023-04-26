@@ -1,6 +1,6 @@
 import csv
 import os
-from databaseconn_main import *
+from main_files.databaseconn_main import *
 
 def insert_branches(conn, cursor, branch_id, branch_name):
     cursor.execute("INSERT INTO branches (branch_id, branch_name) VALUES (%s, %s)", (branch_id, branch_name))
@@ -12,7 +12,7 @@ def insert_branches(conn, cursor, branch_id, branch_name):
 current_file_path = os.path.dirname(__file__)
 
 # Navigate to the data folder
-data_folder = "../csv_files"
+data_folder = "csv_files"
 
 # Get a list of all CSV files in the data folder
 csv_files = [os.path.join(data_folder, f) for f in os.listdir(data_folder) if f.endswith(".csv")]

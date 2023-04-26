@@ -1,18 +1,24 @@
 import os
 from dotenv import load_dotenv
-from databaseconn_main import *
-from functions_main import transform_branch_file
+from main_files.databaseconn_main import *
+from main_files.functions_main import transform_branch_file
 
 
 # create a database connnection
 conn, cursor = database_connection(dbname, user, password, host, port)
 
-# save raw csv file path as a list
-branch_filepaths = ['../csv_files/chesterfield_25-08-2021_09-00-00.csv', '../csv_files/leeds_01-01-2020_09-00-00.csv']
+# Get the path of the current file
+current_file_path = os.path.dirname(__file__)
+
+# Navigate to the data folder
+data_folder = "csv_files"
+
+# Get a list of all CSV files in the data folder
+csv_files = [os.path.join(data_folder, f) for f in os.listdir(data_folder) if f.endswith(".csv")]
     
 # apply all transformation functions in order and combine them into one list
 transformed_branch_data =[]
-for filepath in branch_filepaths:
+for filepath in csv_files:
     transformed_branch_data += transform_branch_file(filepath)
 
 

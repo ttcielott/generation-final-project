@@ -1,8 +1,8 @@
 import os
 from dotenv import load_dotenv
-from databaseconn_main import database_connection
+from main_files.databaseconn_main import database_connection
 
-load_dotenv('../database/.env')  # load environment variables from .env file
+load_dotenv('database/.env')  # load environment variables from .env file
 
 dbname = os.getenv("postgresql_db")
 user = os.getenv("postgresql_user")
