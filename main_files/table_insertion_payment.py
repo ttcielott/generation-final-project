@@ -5,7 +5,12 @@ from databaseconn_main import *
 
 # Simply function to insert payment options in payments table
 
-def insert_payment (conn, cursor, payment_method_id, payment_method_name):
+def insert_payment (conn, cursor, payment_method_id:int, payment_method_name:str):
+    '''
+    This function reads files in the data folder and then returns 
+    the unique payment methods stored in each csv file, if a different
+    method is found then it will add it to the db table 
+    '''
     cursor.execute("INSERT INTO payments (payment_method_id, payment_method_name) VALUES (%s, %s)", (payment_method_id, payment_method_name))
     conn.commit()
     print('Rows Added')
