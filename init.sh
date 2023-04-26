@@ -20,12 +20,22 @@ then
     # cerate a virtual environment
     python3.10 -m venv .venv
     # activate the virtual environment
+    current_dir=$(pwd)
     source .venv/bin/activate
-
-echo "a virtural environment was created and activated"
 fi
 echo "a virtural environment was created and activated"
     
 # install packages from requirements.txt
 cd main_files
-python -m pip install -r requirements.txt
+pip install -r requirements.txt
+
+# virtual environment got deactivated, so activate again
+if [[ $var == 'W' ]]
+then
+    # activate the virtual environment
+    .venv/Scripts/Activate.bat
+elif [[ $var == 'L' ]]
+then
+    # activate the virtual environment
+    source .venv/bin/activate
+fi

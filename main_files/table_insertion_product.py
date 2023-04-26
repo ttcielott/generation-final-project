@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 from main_files.databaseconn_main import *
 from main_files.functions_main import transform_branch_file
+from typing import List
 
 
 # create a database connnection
@@ -22,7 +23,7 @@ for filepath in csv_files:
     transformed_branch_data += transform_branch_file(filepath)
 
 
-def get_unique_product_n_price(list_of_data_list):
+def get_unique_product_n_price(list_of_data_list: List):
       """get the list of unique product infomation lists.
 
     Args:
