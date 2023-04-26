@@ -14,7 +14,7 @@ def insert_payment (conn, cursor, payment_method_id, payment_method_name):
 current_file_path = os.path.dirname(__file__)
 
 # Navigate to the data folder
-data_folder = "../csv_files"
+data_folder = "csv_files"
 
 # Get a list of all CSV files in the data folder
 csv_files = [os.path.join(data_folder, f) for f in os.listdir(data_folder) if f.endswith(".csv")]
