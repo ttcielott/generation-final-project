@@ -24,6 +24,7 @@ then
 
 echo "a virtural environment was created and activated"
 fi
+echo "a virtural environment was created and activated"
     
 # install packages from requirements.txt
 cd main_files
