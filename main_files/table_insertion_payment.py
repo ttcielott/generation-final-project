@@ -1,7 +1,7 @@
 # Import db connection previously created
 import csv
 import os
-from databaseconn_main import *
+from main_files.databaseconn_main import *
 
 # Simply function to insert payment options in payments table
 
