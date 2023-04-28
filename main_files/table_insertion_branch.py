@@ -3,6 +3,12 @@ import os
 from main_files.databaseconn_main import *
 
 def insert_branches(conn, cursor, branch_id, branch_name):
+    cursor.execute("SELECT branch_name FROM branches WHERE branch_name = %s", (branch_name,))
+    existing_branch = cursor.fetchone()
+    if existing_branch:
+        print(f"Branch with name {branch_name} already exists in the database.")
+        return
+
     cursor.execute("INSERT INTO branches (branch_id, branch_name) VALUES (%s, %s)", (branch_id, branch_name))
     conn.commit()
     print(f"New row with branch ID {branch_id} and branch name {branch_name} was inserted.")
