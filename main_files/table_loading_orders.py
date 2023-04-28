@@ -29,16 +29,16 @@ for file_path in csv_files:
         Size = row[-6]
 
 
-        sql = f"""SELECT product_id
+        sql = """SELECT product_id
                   FROM products
-                  WHERE product_name = {Product_name} 
-                  AND product_size = {Size}
+                  WHERE product_name = %s
+                  AND product_size = %s
                """
     
-
-        cursor.execute(sql)
-        Product_id = cursor.fetch_one()[0]
-        print(Product_id )
+        data_values = (Product_name, Size)
+        cursor.execute(sql, data_values)
+        Product_id = cursor.fetchone()[0]
+        print(Product_id)
 
     
 
