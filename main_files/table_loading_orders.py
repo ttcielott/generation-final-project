@@ -6,8 +6,42 @@ from dotenv import load_dotenv
 
 load_dotenv('database/.env')  # load environment variables from .env file
 
+# Get the path of the current file
+current_file_path = os.path.dirname(__file__)
+
 # create a database connnection
 conn, cursor = database_connection(dbname, user, password, host, port)
+
+# Navigate to the data folder
+data_folder = "csv_files"
+
+# Get a list of all CSV files in the data folder
+csv_files = [os.path.join(data_folder, f) for f in os.listdir(data_folder) if f.endswith(".csv")]
+
+# loop through the csv file path
+for file_path in csv_files:
+    transformed_data = transform_branch_file(file_path)
+    
+    Customer_id = 0
+    for row in transformed_data:
+        Branch_name = row[1]
+        Product_name = row[-3]
+        Size = row[-6]
+
+
+        sql = f"""SELECT product_id
+                  FROM products
+                  WHERE product_name = {Product_name} 
+                  AND product_size = {Size}
+               """
+    
+
+        cursor.execute(sql)
+        Product_id = cursor.fetch_one()[0]
+        print(Product_id )
+
+    
+
 
 def fetch_product_branch_payment_data():
     cursor = conn.cursor()
