@@ -2,6 +2,7 @@
 import csv
 import os
 from main_files.databaseconn_main import *
+from main_files.functions_main import *
 
 # Simply function to insert payment options in payments table
 
@@ -15,14 +16,7 @@ def insert_payment (conn, cursor, payment_method_id:int, payment_method_name:str
     conn.commit()
     print('Rows Added')
 
-# Get the path of the current file
-current_file_path = os.path.dirname(__file__)
-
-# Navigate to the data folder
-data_folder = "csv_files"
-
-# Get a list of all CSV files in the data folder
-csv_files = [os.path.join(data_folder, f) for f in os.listdir(data_folder) if f.endswith(".csv")]
+csv_files = get_csv_files_path() 
 
 unique_payment_names = set()
 

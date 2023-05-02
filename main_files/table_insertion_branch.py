@@ -1,6 +1,7 @@
 import csv
 import os
 from main_files.databaseconn_main import *
+from main_files.functions_main import *
 
 def insert_branches(conn, cursor, branch_id, branch_name):
     cursor.execute("SELECT branch_name FROM branches WHERE branch_name = %s", (branch_name,))
@@ -12,15 +13,7 @@ def insert_branches(conn, cursor, branch_id, branch_name):
         conn.commit()
         print(f"New row with branch ID {branch_id} and branch name {branch_name} was inserted.")
 
-
-# Get the path of the current file
-current_file_path = os.path.dirname(__file__)
-
-# Navigate to the data folder
-data_folder = "csv_files"
-
-# Get a list of all CSV files in the data folder
-csv_files = [os.path.join(data_folder, f) for f in os.listdir(data_folder) if f.endswith(".csv")]
+csv_files = get_csv_files_path() 
 
 unique_branch_names = set()
 
