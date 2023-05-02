@@ -35,7 +35,7 @@ def get_unique_product_n_price(list_of_data_list: List):
 
             # select product name, product size, product price
             # save them in a list
-            product_row = [row[-3], row[3], row[-2]]
+            product_row = [row[-2], row[2], row[-1]]
 
             # append product_row to product_rows
             product_rows.append(product_row)
