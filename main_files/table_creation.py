@@ -47,22 +47,35 @@ def create_db_tables(conn, cursor):
     CREATE TABLE IF NOT EXISTS orders(
         order_id serial NOT NULL,
         branch_id int NOT NULL,
-        product_id int NOT NULL,
         payment_method_id int NOT NULL,
         total_order_amount decimal(19,2),
         order_date date,
         order_time time,
         PRIMARY KEY (order_id),
-        FOREIGN KEY (product_id) REFERENCES products(product_id),
         FOREIGN KEY (branch_id) REFERENCES branches(branch_id),
         FOREIGN KEY (payment_method_id) REFERENCES payments(payment_method_id)
     );
     """
+    create_order_product_table = \
+    """
+        CREATE TABLE IF NOT EXISTS order_product(
+            order_id serial NOT NULL,
+            product_id serial NOT NULL,
+            PRIMARY KEY (order_id, product_id),
+            FOREIGN KEY (order_id) REFERENCES orders(order_id),
+            FOREIGN KEY (product_id) REFERENCES products(product_id)
+           
+        );
+    """
+
+
+
     
     cursor.execute(create_products_table)
     cursor.execute(create_branches_table)
     cursor.execute(create_payments_table)
     cursor.execute(create_orders_table)
+    cursor.execute(create_order_product_table)
     conn.commit()
     cursor.close()
     conn.close()
