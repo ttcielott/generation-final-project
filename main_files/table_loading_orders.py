@@ -7,17 +7,11 @@ from datetime import datetime
 
 load_dotenv('database/.env')  # load environment variables from .env file
 
-# Get the path of the current file
-current_file_path = os.path.dirname(__file__)
 
 # create a database connnection
 conn, cursor = database_connection(dbname, user, password, host, port)
 
-# Navigate to the data folder
-data_folder = "csv_files"
-
-# Get a list of all CSV files in the data folder
-csv_files = [os.path.join(data_folder, f) for f in os.listdir(data_folder) if f.endswith(".csv")]
+csv_files = get_csv_files_path()
 
 def load_order_data(order_data):
     cursor = conn.cursor()

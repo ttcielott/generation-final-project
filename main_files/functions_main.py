@@ -1,3 +1,4 @@
+import os
 import csv
 from operator import itemgetter
 from typing import List, Dict
@@ -196,7 +197,13 @@ def transform_branch_file(file_path: str):
     
     return new_data
 
-
+def get_csv_files_path():
+    # Navigate to the data folder
+    data_folder = "csv_files"
+    
+    # Get a list of all CSV files in the data folder
+    csv_files = [os.path.join(data_folder, f) for f in os.listdir(data_folder) if f.endswith(".csv")]
+    return csv_files
 
 if __name__ == "__main__":
     branch_filepaths = ['csv_files/chesterfield_25-08-2021_09-00-00.csv', 'csv_files/leeds_01-01-2020_09-00-00.csv']
@@ -207,3 +214,6 @@ if __name__ == "__main__":
     
     for ele in transformed_branch_data:
         print(ele)
+
+    csv_files = get_csv_files_path()
+    print(csv_files)
