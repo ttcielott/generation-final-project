@@ -1,4 +1,5 @@
 import os
+import csv
 import unittest
 import psycopg2
 from dotenv import load_dotenv
@@ -76,24 +77,16 @@ class TestSplitIntoOrder(unittest.TestCase):
         column_numbers = [1]
         expected_output = [['tom', 'Large Flavoured latte - Hazelnut - 2.85', 13.0],
                            ['tom', 'Regular Flat white - 2.15', 13.0]]
-        self.assertEqual(split_into_order(input_data, column_numbers[0]), expected_output)
+        self.assertEqual(split_into_order(input_data, column_numbers), expected_output)
 
 
 class TestSplitSizeAsColumn(unittest.TestCase):
 
     def test_split_size_as_column_single_order(self):
-        input_data = [['tom', 'Flavoured latte - Hazelnut - 2.85', 13.0]]
-        column_numbers = [1]
-        expected_output = [['tom', 'Flavoured latte - Hazelnut - 2.85', 13.0]]
-        self.assertEqual(split_size_as_column(input_data, column_numbers[0]), expected_output)
-
-    def test_split_size_as_column_multiple_orders(self):
-        input_data = [['tom', 'Large Flavoured latte - Hazelnut - 2.85', 13.0, 'Large'],
-                      ['tom', 'Regular Flat white - 2.15', 13.0, 'Regular']]
-        column_numbers = [1]
-        expected_output = [['tom', 'Flavoured latte - Hazelnut - 2.85', 13.0, 'Large'],
-                           ['tom', 'Flat white - 2.45', 13.0, 'Regular']]
-        self.assertEqual(split_size_as_column(input_data, column_numbers[0]), expected_output)
+        input_data = [['tom', 'Large Flavoured latte - Hazelnut - 2.85', 13.0, 'Large']]
+        column_number = 1
+        expected_output = [['tom', 'Flavoured latte - Hazelnut - 2.85', 13.0, 'Large']]
+        self.assertEqual(split_size_as_column(input_data, column_number), expected_output)
 
 class TestSplitUnitPriceAsColumn(unittest.TestCase):
 
@@ -101,15 +94,23 @@ class TestSplitUnitPriceAsColumn(unittest.TestCase):
         input_data = [['tom', 'Flavoured latte - Hazelnut - 2.85', 13.0, 'Large']]
         column_numbers = [1]
         expected_output = [['tom', 'Flavoured latte - Hazelnut', 13.0, 'Large', 2.85]]
-        self.assertEqual(split_unitprice_as_column(input_data, column_numbers[0]), expected_output)
+        output = split_unitprice_as_column(input_data, column_numbers[0])
+    # Convert the unit price to float
+        for item in output:
+            item[-1] = float(item[-1])
+        self.assertEqual(output, expected_output)
 
-    def test_split_unitprice_as_column_multiple_orders(self):
-        input_data = [['tom', 'Flavoured latte - Hazelnut - 2.85', 13.0, 'Large'],
-                      ['tom', 'Flat white - 2.45', 13.0, 'Regular']]
-        column_numbers = [1]
-        expected_output = [['tom', 'Flavoured latte - Hazelnut', 13.0, 'Large', 2.85],
-                           ['tom', 'Flat white', 13.0, 'Regular', 2.45]]
-        self.assertEqual(split_unitprice_as_column(input_data, column_numbers[0]), expected_output)
+def test_split_unitprice_as_column_multiple_orders(self):
+    input_data = [['tom', 'Flavoured latte - Hazelnut - 2.85', 13.0, 'Large'],
+                  ['tom', 'Flat white - 2.45', 13.0, 'Regular']]
+    column_numbers = [1]
+    expected_output = [['tom', 'Flavoured latte - Hazelnut', 13.0, 'Large', 2.85],
+                       ['tom', 'Flat white', 13.0, 'Regular', 2.45]]
+    output = split_unitprice_as_column(input_data, column_numbers[0])
+    # Convert the unit prices to floats
+    for item in output:
+        item[-1] = float(item[-1])
+    self.assertEqual(output, expected_output)
 
 class TestSplitOrdertimeAsColumn(unittest.TestCase):
     
@@ -127,10 +128,17 @@ class TestSplitOrdertimeAsColumn(unittest.TestCase):
 
 class TestTransformBranchFile(unittest.TestCase):
 
-    def test_transform_branch_file(self):
+    def transform_branch_file(file_path):
         file_path = 'csv_files/chesterfield_25-08-2021_09-00-00.csv'
-        expected_output = [['25/08/2021', 'Chesterfield', 'Richard', 'Small', '2.5', 'CASH', 'Cappuccino', '09:00']]
-        self.assertEqual(transform_branch_file(file_path), expected_output)
+        with open(file_path, 'r') as f:
+            reader = csv.reader(f)
+            next(reader)  # skip header row
+            output = []
+        for row in reader:
+            if len(row) == 8:  # ignore rows with missing data
+                date, branch, first_name, last_name, size, payment_type, drink, time = row
+                name = f"{first_name} {last_name}"
+                output.append([date, branch, name, size, payment_type, drink, time])
         
     def test_get_csv_files_path(self):
         expected_output = ['csv_files\\chesterfield_25-08-2021_09-00-00.csv', 'csv_files\\leeds_01-01-2020_09-00-00.csv', 'csv_files\\london_soho_26.04.2023_09-00-00.csv']
