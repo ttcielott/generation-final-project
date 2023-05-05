@@ -27,14 +27,14 @@ This is a software for a client, cafe business owner with multiple offline store
 
 
 ## Authors
-----------
+
 Developers
 - Sam Feighery   [Linkedin](https://www.linkedin.com/in/sam-feighery-b5265126/) | [Github](https://github.com/Sam-Feighery)<br>
 - Kendrick Filho   [Linkedin](https://www.linkedin.com/in/misael-filho/) | [Github](https://github.com/mkmfilho/)<br>
 - Ife Adeoti  [Github](https://github.com/S44WSA)<br>
 - Dana Kim   [Linkedin](https://www.linkedin.com/in/haneul-kim-987b7744/) | [Github](https://github.com/ttcielott/)<br>
-- Rishi Ravindran  [Github](https://github.com/Rishi06R)<br>
-----------
+- Rishi Ravindran  [Linkedin](https://www.linkedin.com/in/rishiram-ravindran-a00127238/) | [Github](https://github.com/Rishi06R)<br>
+
 
 
 ### Some basic Git commands are:
@@ -42,4 +42,47 @@ Developers
 git status
 git add
 git commit
+```
+## Initial Setup
+----------
+### Run Bash Script file
+After git clone this repository, you can run the following bash script file for initial setup (docker compose, creation of a virtual environment, package installation, and activation of a virtual environment).
+
+```
+chmod +x init.sh
+./init.sh
+```
+
+### OR Run Command Line Step by Step
+**1. Commands to setup docker**
+```
+cd database
+docker compose up -d
+```
+
+**2. Creating venv**
+```
+Windows - py -3.10 -m venv .venv
+Mac - python3.10 -m venv .venv
+```
+
+**3. Activating venv**
+```
+Windows - .venv/Scripts/Activate.bat
+Mac - source .venv/bin/activate
+``` 
+
+
+**4. Installing packages from requirments**
+```
+cd main_files
+pip install -r requirements.txt
+```
+
+Note: if you see an error installing the package, `psycopg2==2.9.6`, please open `requirements.txt` file and replace it with `psycopg-binary` and re-run `pip install -r requirements.txt`.
+
+## Command to run a file as module in python
+```
+Windows - py -m <folder name>.<filename only without extension i.e .py>
+Mac - python -m m<folder name>.<filename only without extension i.e .py>
 ```
