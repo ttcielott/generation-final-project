@@ -1,13 +1,11 @@
-import os
-import csv
 from operator import itemgetter
-from typing import List, Dict
+from typing import List
 from collections import Counter
 
-def extract_without(file_path: str, column_numbers: List):
+def extract_without(list_of_data: List, column_numbers: List):
     """extract all data but the column numbers in the list
     Args:
-        file_path: str, csv file path
+        list_of_data: output from csv.reader()
         column_number: list of of column numbers to exclude
     
     Returns:
@@ -22,53 +20,29 @@ def extract_without(file_path: str, column_numbers: List):
 
     list_of_new_data_list = []
 
-    with open(file_path) as file:
-        reader = csv.reader(file, delimiter = ',')
-
-
-        for row in reader:
-            selected_column_numbers = set(range(len(row))) - set(column_numbers)
-            
-            new_data_list= itemgetter(*selected_column_numbers)(row)
-            new_data_list = list(new_data_list)
-            list_of_new_data_list.append(new_data_list)
+    for data in list_of_data:
+        selected_column_numbers = set(range(len(data))) - set(column_numbers)
+        selected_column_numbers = list(selected_column_numbers)
+        
+        new_data_list= itemgetter(*selected_column_numbers)(data)
+        new_data_list = list(new_data_list)
+        list_of_new_data_list.append(new_data_list)
 
     return list_of_new_data_list
 
-def split_ordertime_as_column(list_of_data_list: List, column_number: int, sep: str=' '):
-    """split order time from order date time into a separate column or element
+def add_temp_transaction_id(list_of_data_list):
 
-    Args:
-        list_of_data_list: list, output of the function, `split_unitprice_as_column`
-        column_number: int
-        sep: separator, dafault is ' '.
-
-    Returns:
-        a list of list of data with order time element separated from order date time element and added as a separate element
-        example:
-            original data:   [['25/08/2021 09:00','Chesterfield', 'Richard']]
-            column_numbers: [0]
-
-            output:
-            [['25/08/2021','Chesterfield', 'Richard', '09:00']]
-    """
-    list_of_new_data_list =[]
-    for data in list_of_data_list:
-        updating_col = data[column_number]
-        split_list = updating_col.strip().split(sep, 1)
-
-        if len(split_list) == 1:
-            raise Exception('No split occurred')
-        elif len(split_list) > 1:
-            
-            original_data = data.copy()
-            original_data[column_number] = split_list[0]
-            original_data.append(split_list[1])
-            list_of_new_data_list.append(original_data)
+    list_of_new_data_list = []
+    for i, data in enumerate(list_of_data_list):
+        transaction_id = i + 1
+        original_data = data.copy()
+        original_data.insert(0, transaction_id)
+        list_of_new_data_list.append(original_data)
 
     return list_of_new_data_list
+        
 
-def split_into_order(list_of_data_list, column_number, sep=','):
+def split_into_order(list_of_data_list, column_number, sep = ','):
     """make one row contain a single menu order. 
 
     Args:
@@ -90,18 +64,21 @@ def split_into_order(list_of_data_list, column_number, sep=','):
     for data in list_of_data_list:
         updating_col = data[column_number]
         orders_list = updating_col.split(sep)
-        # remove white space
+        
         white_space_removal = lambda x: x.strip()
         orders_list = [*map(white_space_removal, orders_list)]
         
         count_dict = Counter(orders_list)
-        print(count_dict)
 
-        for product, qty in count_dict.items():
+        for product_name, order_qty in count_dict.items():
             original_data = data.copy()
-            original_data[column_number] = product
-            original_data.append(qty)
+            original_data.pop(column_number)
+
+            original_data.insert(3, product_name)
+            original_data.insert(4, order_qty)
+
             list_of_new_data_list.append(original_data)
+                
 
     return list_of_new_data_list
 
@@ -131,12 +108,17 @@ def split_size_as_column(list_of_data_list: List, column_number: int, sep: str =
         split_list= striped_string.split(sep, 1)
 
         if len(split_list) == 1:
-            raise Exception('No split occurred')
+            raise Exception('No split occurred in size column')
         elif len(split_list) > 1:
             
             original_data = data.copy()
-            original_data[column_number] = split_list[0]
-            original_data.append(split_list[1])
+            original_data.pop(column_number)
+
+            product_size = split_list[0]
+            product_name = split_list[1]
+            original_data.insert(3, product_name)
+            original_data.insert(4, product_size)
+            
             list_of_new_data_list.append(original_data)
 
     return list_of_new_data_list
@@ -166,18 +148,60 @@ def split_unitprice_as_column(list_of_data_list: List, column_number: int, sep: 
         split_list = updating_col.strip().rsplit(sep, 1)
 
         if len(split_list) == 1:
-            raise Exception('No split occurred')
+            raise Exception('No split occurred in unit price column')
         elif len(split_list) > 1:
             
             original_data = data.copy()
-            original_data[column_number] = split_list[0]
-            original_data.append(split_list[1])
+            original_data.pop(column_number)
+
+            product_name = split_list[0]
+            unit_price = split_list[1]
+            original_data.insert(3, product_name)
+            original_data.insert(5, unit_price)
+
             list_of_new_data_list.append(original_data)
 
     return list_of_new_data_list
 
 
-def transform_branch_file(file_path: str):
+def split_ordertime_as_column(list_of_data_list: List, column_number: int, sep: str=' '):
+    """split order time from order date time into a separate column or element
+
+    Args:
+        list_of_data_list: list, output of the function, `split_unitprice_as_column`
+        column_number: int
+        sep: separator, dafault is ' '.
+
+    Returns:
+        a list of list of data with order time element separated from order date time element and added as a separate element
+        example:
+            original data:   [['25/08/2021 09:00','Chesterfield', 'Richard']]
+            column_numbers: [0]
+
+            output:
+            [['25/08/2021','Chesterfield', 'Richard', '09:00']]
+    """
+    list_of_new_data_list =[]
+    for data in list_of_data_list:
+        updating_col = data[column_number]
+        split_list = updating_col.strip().split(sep, 1)
+
+        if len(split_list) == 1:
+            raise Exception('No split occurred')
+        elif len(split_list) > 1:
+            
+            original_data = data.copy()
+            original_data.pop(column_number)
+
+            order_date = split_list[0]
+            order_time = split_list[1]
+            original_data.insert(1, order_date)
+            original_data.insert(2, order_time)
+            list_of_new_data_list.append(original_data)
+
+    return list_of_new_data_list
+
+def transform_branch_file(list_of_data: List):
     """apply all data transfromation function to raw csv file.
 
     Args:
@@ -187,45 +211,34 @@ def transform_branch_file(file_path: str):
         a list of list of data that contains transformed sale data of a single branch
     """
 
-    # extract raw csv file without the column, customer name and credit card number
-    transformed_data1 = extract_without(file_path, [2, 6])
+    new_data = extract_without(list_of_data, [2, 6])
 
-    # split the column, datetime into date and time
-    transformed_data2 = split_ordertime_as_column(transformed_data1, 0)
+    new_data = add_temp_transaction_id(new_data)
 
-    # transform transformed_data2 to split multiple orders in one row into single order in one row
-    transformed_data3 = split_into_order(transformed_data2, 2)
+    new_data = split_into_order(new_data, 3)
 
-    # transform transformed_data3 to split size from order
-    transformed_data4 = split_size_as_column(transformed_data3, 2)
+    new_data = split_size_as_column(new_data, 3)
 
-    # transform transformed_data4 to split unit price from order
-    transformed_data5 = split_unitprice_as_column(transformed_data4, -1)
+    new_data = split_unitprice_as_column(new_data, 3)
+
+    new_data = split_ordertime_as_column(new_data, 1)
 
     
-    return transformed_data5
+    return new_data
 
-def get_csv_files_path():
-    # Navigate to the data folder
-    data_folder = "csv_files"
-    
-    # Get a list of all CSV files in the data folder
-    csv_files = [os.path.join(data_folder, f) for f in os.listdir(data_folder) if f.endswith(".csv")]
-    return csv_files
-
-
+import csv
 
 if __name__ == "__main__":
-    branch_filepaths = get_csv_files_path()
-    # apply all transformation functions in order and combine them into one list
-    transformed_branch_data =[]
-    for filepath in branch_filepaths:
-        transformed_branch_data += transform_branch_file(filepath)
+    csv_path = 'csv_files/chesterfield_25-08-2021_09-00-00.csv'
 
-    print(len(transformed_branch_data))
+    with open(csv_path) as file:
+        csv_file = csv.reader(file, delimiter=',')
     
-    for ele in transformed_branch_data[:5]:
-        print(ele)
+        csv_list = [*csv_file]
 
-    csv_files = get_csv_files_path()
-    print(csv_files)
+    transform_data = transform_branch_file(csv_list)
+
+    for row in transform_data[:10]:
+        print(row)
+
+
