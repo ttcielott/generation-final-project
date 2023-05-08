@@ -1,4 +1,3 @@
-import os
 from dotenv import load_dotenv
 from main_files.databaseconn_main import *
 from main_files.functions_main import *
@@ -48,21 +47,32 @@ def load_order_product_data(order_product_data):
 
 # loop through the csv file path
 for file_path in csv_files: 
+    csv_list = read_csv(file_path)
 
-    # extract raw csv file without the column, customer name and credit card number
-    transformed_data1 = extract_without(file_path, [2, 6])
+    # transform data
+    transformed_data = transform_branch_file(csv_list)
 
-    # split the column, datetime into date and time
-    transformed_data2 = split_ordertime_as_column(transformed_data1, 0)
+    # set key names
+    key_names = ['temp_order_id', 'order_date', 'order_time', 'branch_name', 
+                 'product_name', 'product_size', 'unit_price', 'order_qty', 
+                 'total_amount', 'payment_method']
 
-    for row in transformed_data2:
+    # convert list into diction with column names
+    order_dict_list = convert_to_list_of_dictionary(transformed_data, key_names)
+
+    # collapse the same transactions into one list
+    unique_order_dict_list = collape_same_transactions_into_one(order_dict_list)
+    
+
+    for order_dict in unique_order_dict_list:
        
-        branch_name = row[1]
-        payment_method = row[4]
-        total_order_amount = row[3]
-        order_date = row[0]
+        order_date = order_dict['order_date']
         order_date = datetime.strptime(order_date, '%d/%m/%Y').strftime('%Y-%m-%d')
-        order_time = row[5]
+        order_time = order_dict['order_time']
+        branch_name = order_dict['branch_name']
+        payment_method = order_dict['payment_method']
+        total_order_amount = order_dict['total_amount']
+        order_list = order_dict['orders']
 
         sql_branch = """SELECT branch_id
                         FROM branches
@@ -91,9 +101,6 @@ for file_path in csv_files:
         # Call the load_order_data function to insert data into the orders table
         load_order_data(order_data)
 
-         # transform transformed_data2 to split multiple orders in one row into single order in one row
-        transformed_data3 = split_into_order([row], 2)
-
         # query a newly-created order_id
         sql_order = """SELECT MAX(order_id)
                         FROM orders
@@ -101,18 +108,11 @@ for file_path in csv_files:
         cursor.execute(sql_order)
         Order_id = cursor.fetchone()[0]
 
-        # transform transformed_data3 to split size from order
-        transformed_data4 = split_size_as_column(transformed_data3, 2)
-
-        # transform transformed_data4 to split unit price from order
-        transformed_data5 = split_unitprice_as_column(transformed_data4, -1)
-
-
-        for row in transformed_data5:
+        for each_order_dict in order_list:
             
-            product_name = row[-2]
-            product_size = row[2]
-            order_qty = row[-3]
+            product_name = each_order_dict['product_name']
+            product_size = each_order_dict['product_size']
+            order_qty = each_order_dict['order_qty']
 
             # Create the sql statement to query order_id and product_id
             sql_product = """SELECT product_id
@@ -130,7 +130,6 @@ for file_path in csv_files:
                                    "product_id": Product_id, 
                                    "order_qty": order_qty}]
 
-            print(order_product_data)
 
             # Call the load_order_product_data to insert data into the order_product table
             load_order_product_data(order_product_data)
