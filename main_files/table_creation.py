@@ -61,7 +61,8 @@ def create_db_tables(conn, cursor):
         CREATE TABLE IF NOT EXISTS order_product(
             order_id serial NOT NULL,
             product_id serial NOT NULL,
-            PRIMARY KEY (order_id, product_id),
+            order_qty int NOT NULL,
+            PRIMARY KEY (order_id, product_id, order_qty),
             FOREIGN KEY (order_id) REFERENCES orders(order_id),
             FOREIGN KEY (product_id) REFERENCES products(product_id)
            
