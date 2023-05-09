@@ -1,13 +1,11 @@
-import os
+import csv
 from operator import itemgetter
 from typing import List
 from collections import Counter
 
-def read_csv(file_path):
-    with open(file_path) as file:
-        csv_file = csv.reader(file, delimiter=',')
-    
-        csv_list = [*csv_file]
+def read_csv(file):
+    csv_file = csv.reader(file, delimiter=',')
+    csv_list = [*csv_file]
     return csv_list
 
 def extract_without(list_of_data: List, column_numbers: List):
@@ -234,69 +232,3 @@ def transform_branch_file(list_of_data: List):
     
     return new_data
 
-def convert_to_list_of_dictionary(list_of_data: List, key_names: List):
-    # make a list of dictionaries of which the key, 'order_list' contain a list of all orders per each transaction
-    # each order in order_list should be in the dictionary: {'product_name': 'latte', 'product_size': 'large', 'order_qty': 2}
-    order_dict_list = []
-    for order_list in list_of_data:
-        order_dict = dict(zip(key_names, order_list))
-        order_dict_list.append(order_dict)
-    
-    return order_dict_list
-
-def collape_same_transactions_into_one(order_dict_list: List):
-    new_order_dict_list = []
-    for order_dict in order_dict_list:
-        single_order_dict = {'product_name': order_dict['product_name'], 
-                              'product_size': order_dict['product_size'],
-                              'order_qty': order_dict['order_qty']}
-        if len(new_order_dict_list) > 0 and order_dict['temp_order_id'] == new_order_dict_list[-1]['temp_order_id']:
-            # last_added_order_dict = new_order_dict_list[-1]
-            # last_added_order_id_key = last_added_order_dict['temp_order_id']
-            # current_order_id_key = order_dict['temp_order_id']
-            
-            new_order_dict_list[-1]['orders'].append(single_order_dict)
-        else:
-            order_dict['orders'] = [single_order_dict]
-            del order_dict['product_name']
-            del order_dict['product_size']
-            del order_dict['order_qty']
-            new_order_dict_list.append(order_dict)
-
-    return new_order_dict_list
-
-def get_csv_files_path():
-    # Navigate to the data folder
-    data_folder = "csv_files"
-    
-    # Get a list of all CSV files in the data folder
-    csv_files = [os.path.join(data_folder, f) for f in os.listdir(data_folder) if f.endswith(".csv")]
-    return csv_files
-
-
-
-    
-
-import csv
-
-if __name__ == "__main__":
-    csv_path = 'csv_files/chesterfield_25-08-2021_09-00-00.csv'
-
-    csv_list = read_csv(csv_path)
-
-    transform_data = transform_branch_file(csv_list)
-
-    for row in transform_data[:10]:
-        print(row)
-
-    key_names = ['temp_order_id', 'order_date', 'order_time', 'branch_name', 
-                 'product_name', 'product_size', 'unit_price', 'order_qty', 
-                 'total_amount', 'payment_method']
-    
-    order_dict_list = convert_to_list_of_dictionary(transform_data[:10], key_names=key_names)
-
-    collapsed_dict_list = collape_same_transactions_into_one(order_dict_list)
-
-    for row in collapsed_dict_list:
-        for key, value in row.items():
-            print(f'{key} : {value} \n')

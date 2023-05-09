@@ -1,12 +1,14 @@
 import boto3
 import csv
 from io import StringIO
-from functions_main import *
+from functions_transformation import *
 
 s3 = boto3.client('s3')
 
 
 def lambda_handler(event, context):
+    print(f'lambda_handler started event collected is {event}')
+
     # Get the object from the event
     print(f'lambda_handler called, event = {event}')
     bucket = event['Records'][0]['s3']['bucket']['name']
@@ -19,10 +21,7 @@ def lambda_handler(event, context):
         #print(f'lambda_handler s3 content = {content}')
     
         # Read the csv file
-        data = []
-        reader = csv.reader(StringIO(content))
-        for row in reader:
-            data.append(row)
+        data = read_csv(StringIO(content))
         print(f'lambda_handler loaded {len(data)} rows from file {key}')
         
         #changing the key to only return the name of the store
