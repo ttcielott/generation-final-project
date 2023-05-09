@@ -1,4 +1,4 @@
-from redshift_db_conn import *
+from database.redshift_db_conn import *
 from functions_orders import *
 from typing import List, Dict
 from datetime import datetime

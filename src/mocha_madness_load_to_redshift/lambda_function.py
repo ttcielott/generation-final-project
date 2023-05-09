@@ -1,7 +1,7 @@
 import boto3
 import csv
 from io import StringIO
-from redshift_db_conn import *
+from database.redshift_db_conn import *
 from redshift_table_insertion_products import *
 from redshift_table_insertion_branches import *
 from redshift_table_insertion_payments import *

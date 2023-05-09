@@ -1,6 +1,6 @@
 import boto3
 import json
-from redshift_db_conn import conn, cursor
+from database.redshift_db_conn import conn, cursor
 
 def create_db_tables(conn, cursor):
     try:

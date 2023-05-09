@@ -1,4 +1,4 @@
-from redshift_db_conn import *
+from database.redshift_db_conn import *
 from typing import List
 
 def get_unique_product_info_combination(record_index: int, from_path: str, list_of_data_list: List):

@@ -1,4 +1,4 @@
-from redshift_db_conn import *
+from database.redshift_db_conn import *
 from typing import List
 
 def get_unique_branch_names(record_index, from_path, list_of_data_list: List):
