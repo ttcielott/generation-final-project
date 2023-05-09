@@ -4,8 +4,7 @@ from typing import List, Dict
 from datetime import datetime
 
 
-def insert_order(order_dict: Dict):
-    conn, cursor = database_connection(dbname, user, password, host, port)
+def insert_order(order_dict):
 
     branch_id = order_dict["branch_id"]
     payment_method_id = order_dict["payment_method_id"]
@@ -21,30 +20,25 @@ def insert_order(order_dict: Dict):
         """,
         (branch_id, payment_method_id, total_order_amount, order_date, order_time)
     )
-    cursor.close()
     conn.commit()
-    conn.close()
     
-def insert_order_product(order_product_dict: Dict):
-    conn, cursor = database_connection(dbname, user, password, host, port)
+def insert_order_product(order_product_data: List):
     
-    order_id = order_product_dict["order_id"]
-    product_id = order_product_dict["product_id"]
-    order_qty = order_product_dict["order_qty"]
+    for order_product in order_product_data:
+        order_id = order_product["order_id"]
+        product_id = order_product["product_id"]
+        order_qty = order_product["order_qty"]
 
-    cursor.execute(
-        """
-        INSERT INTO order_product
-        (order_id, product_id, order_qty)
-        VALUES (%s, %s, %s)
-        """,
-        (order_id, product_id, order_qty)
-    )
-    cursor.close()
-    conn.commit()
-    conn.close()
+        cursor.execute(
+            """
+            INSERT INTO order_product
+            (order_id, product_id, order_qty)
+            VALUES (%s, %s, %s)
+            """,
+            (order_id, product_id, order_qty)
+        )
 
-def get_unique_orders_dictionaries(record_index: int, from_path: str, list_of_data: List):
+def get_unique_orders_dictinaries(record_index: int, from_path: str, list_of_data: List):
 
     # set key names
     key_names = ['temp_order_id', 'order_date', 'order_time', 'branch_name', 
@@ -63,7 +57,7 @@ def load_to_table_order_n_order_product(record_index: int, from_path: str, list_
 
     conn, cursor = database_connection(dbname, user, password, host, port)
 
-    unique_order_dict_list = get_unique_orders_dictionaries(record_index, from_path, list_of_data)
+    unique_order_dict_list = get_unique_orders_dictinaries(record_index, from_path, list_of_data)
 
     for order_dict in unique_order_dict_list:
         
@@ -77,22 +71,20 @@ def load_to_table_order_n_order_product(record_index: int, from_path: str, list_
 
         sql_branch = """SELECT branch_id
                         FROM branches
-                        WHERE branch_name = %s; 
+                        WHERE branch_name = %s 
                         """
         sql_payment = """SELECT payment_method_id
                             FROM payments
-                            WHERE payment_method_name = %s;
+                            WHERE payment_method_name = %s
                         """
         
         branch_values = (branch_name,)
         cursor.execute(sql_branch, branch_values)
         Branch_id = cursor.fetchone()[0]
-        print(f'branch_id:{Branch_id}')
 
         payment_values = (payment_method,)
         cursor.execute(sql_payment, payment_values)
         Payment_method_id = cursor.fetchone()[0]
-        print(f'payment_method_id: {Payment_method_id}')
 
 
         # save the information to be inserted into the table, order as a dictionary
@@ -100,20 +92,16 @@ def load_to_table_order_n_order_product(record_index: int, from_path: str, list_
                     "payment_method_id": Payment_method_id, 
                     "total_order_amount": total_order_amount, 
                     "order_date": order_date, "order_time": order_time}
-        print(f'order_data: {order_data}')
 
         # insert data into the orders table
         insert_order(order_data)
-        
-        conn, cursor = database_connection(dbname, user, password, host, port)
-        
+
         # query a newly-created order_id
         sql_order = """SELECT MAX(order_id)
-                        FROM orders;
+                        FROM orders
                     """
         cursor.execute(sql_order)
         Order_id = cursor.fetchone()[0]
-        print(f'order_id: {Order_id}')
 
         for each_order_dict in order_list:
             
@@ -132,11 +120,15 @@ def load_to_table_order_n_order_product(record_index: int, from_path: str, list_
             cursor.execute(sql_product, product_values)
             Product_id = cursor.fetchone()[0]
             
-            # save the information to be inserted into the table, order_product as a dictionary
-            order_product_data = {"order_id": Order_id,
+            # Define the order_product_data as a list of dictionaries
+            order_product_data = [{"order_id": Order_id,
                                     "product_id": Product_id, 
-                                    "order_qty": order_qty}
+                                    "order_qty": order_qty}]
 
 
             # insert data into the order_product table
             insert_order_product(order_product_data)
+
+    conn.commit()
+    cursor.close()
+    conn.close()
