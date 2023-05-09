@@ -1,5 +1,5 @@
-from redshift_db_conn import *
-from functions_orders import *
+from main_files.databaseconn_main import *
+from main_files.functions_main import *
 from typing import List, Dict
 from datetime import datetime
 
