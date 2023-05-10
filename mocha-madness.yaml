@@ -6,7 +6,7 @@ Parameters:
   DeploymentBucket:
     Type: String
     Description: Enter the name of the S3 bucket where your deployment package is.
-    Default: mocha-madness-stack
+    Default: mocha-madness-config
   DeploymentPackageKey:
     Type: String
     Description: Enter the name of the S3 key of your deployment package.
