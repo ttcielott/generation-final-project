@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: >
+Description: 
   Template to deploy a lambda which is triggered by an S3 event. 
 
 Parameters:
@@ -19,6 +19,15 @@ Parameters:
     Type: String
     Description: The transformed data from each branch
     Default: mocha-madness-transformed-data
+  VpcSubnetId:
+    Type: String
+    Description: The Redshift private subnet id
+    Default: subnet-01e8ba9e7640e0f56
+  SecurityGroupId:
+    Type: String
+    Description: The Redshift security group id
+    Default: sg-0e6c507aa8ae2a367
+​
 
 Resources:
   LambdaFunctionCsvReader: 
@@ -26,10 +35,10 @@ Resources:
     Properties:
       FunctionName: mocha-madness-CSVReader
       Runtime: python3.10
-      Handler: lambda_function.lambda_handler
+      Handler: CSVReader.lambda_function.lambda_handler
       Role: arn:aws:iam::015206308301:role/lambda-execution-role
       Timeout: 300
-      Code:
+      Code: ../src
         S3Bucket: !Ref DeploymentBucket
         S3Key: !Ref DeploymentPackageKey
       VpcConfig: vpc-0352492da832498ae
@@ -43,10 +52,10 @@ Resources:
     Properties:
       FunctionName: mocha-madness-table-schema
       Runtime: python3.10
-      Handler: lambda_function.lambda_handler
+      Handler: table-schema.lambda_function.lambda_handler
       Role: arn:aws:iam::015206308301:role/lambda-execution-role
       Timeout: 300
-      Code:
+      Code: ../src
         S3Bucket: !Ref DeploymentBucket
         S3Key: !Ref DeploymentPackageKey
       VpcConfig: vpc-0352492da832498ae
@@ -63,7 +72,7 @@ Resources:
       Handler: lambda_function.lambda_handler
       Role: arn:aws:iam::015206308301:role/lambda-execution-role
       Timeout: 300
-      Code:
+      Code: ../src
         S3Bucket: !Ref DeploymentBucket
         S3Key: !Ref DeploymentPackageKey
       VpcConfig: vpc-0352492da832498ae
