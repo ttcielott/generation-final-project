@@ -40,7 +40,7 @@ def lambda_handler(event, context):
         writer.writerows(transformed_data)
         
         # Store the transformed csv file in a new bucket
-        s3.put_object(Body=output.getvalue(), Bucket='mocha-madness-transformed-data', Key=key)
+        s3.put_object(Body=output.getvalue(), Bucket='mocha-madness-transformed-data-v2', Key=key)
         print(f'lambda_handler finished processing file {key}')
     except Exception as e:
         print(f'Error in lambda_handler = ${e}')
