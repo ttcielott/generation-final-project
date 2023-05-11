@@ -25,22 +25,22 @@ Resources:
   LambdaFunctionCsvReader: 
     Type: AWS::Lambda::Function
     Properties:
-      FunctionName: mocha-madness-CSVReader
+      FunctionName: mocha-madness-CsvReader
       Runtime: python3.10
-      Handler: CSVReader.lambda_function.lambda_handler
+      Handler: lambda_function.lambda_handler
       Role: arn:aws:iam::015206308301:role/lambda-execution-role
       Timeout: 300
-      Code: ../src
+      Code: ../src/CsvReader
 
   LambdaFunctionTableSchema:
     Type: AWS::Lambda::Function
     Properties:
       FunctionName: mocha-madness-TableSchemaCreator
       Runtime: python3.10
-      Handler: table-schema.lambda_function.lambda_handler
+      Handler: lambda_function.lambda_handler
       Role: arn:aws:iam::015206308301:role/lambda-execution-role
       Timeout: 300
-      Code: ../src
+      Code: ../src/TableSchemaCreator
       VpcConfig:
         SecurityGroupIds:
           - !Ref SecurityGroupId
@@ -55,7 +55,7 @@ Resources:
       Handler: lambda_function.lambda_handler
       Role: arn:aws:iam::015206308301:role/lambda-execution-role
       Timeout: 300
-      Code: ../src
+      Code: ../src/RedshiftLoader
       VpcConfig:
         SecurityGroupIds:
           - !Ref SecurityGroupId
