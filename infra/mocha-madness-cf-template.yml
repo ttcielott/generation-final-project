@@ -19,6 +19,7 @@ Parameters:
     Type: String
     Description: The Redshift security group id
     Default: sg-0e6c507aa8ae2a367
+  
 
 
 Resources:
