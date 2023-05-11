@@ -32,6 +32,11 @@ Resources:
       Role: arn:aws:iam::015206308301:role/lambda-execution-role
       Timeout: 300
       Code: ../src
+      VpcConfig:
+        SecurityGroupIds:
+          - !Ref SecurityGroupId
+        SubnetIds:
+          - !Ref VpcSubnetId
 
   LambdaFunctionTableSchema:
     Type: AWS::Lambda::Function
