@@ -30,7 +30,7 @@ Resources:
       Handler: CsvReader.lambda_function.lambda_handler
       Role: arn:aws:iam::015206308301:role/lambda-execution-role
       Timeout: 300
-      Code: src
+      Code: ../src
 
   LambdaFunctionTableSchema:
     Type: AWS::Lambda::Function
@@ -40,7 +40,7 @@ Resources:
       Handler: TableSchemaCreator.lambda_function.lambda_handler
       Role: arn:aws:iam::015206308301:role/lambda-execution-role
       Timeout: 300
-      Code: src
+      Code: ../src
       VpcConfig:
         SecurityGroupIds:
           - !Ref SecurityGroupId
@@ -55,7 +55,7 @@ Resources:
       Handler: RedshiftLoader.lambda_function.lambda_handler
       Role: arn:aws:iam::015206308301:role/lambda-execution-role
       Timeout: 300
-      Code: src
+      Code: ../../src
       VpcConfig:
         SecurityGroupIds:
           - !Ref SecurityGroupId

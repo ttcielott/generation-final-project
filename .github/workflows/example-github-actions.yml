@@ -32,6 +32,6 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: eu-west-1
       - name: Package CloudFormation template
-        run: aws cloudformation package --template-file mocha-madness.yml --s3-bucket mocha-madness-config --output-template-file infra/stack-template-packaged.yml
+        run: aws cloudformation package --template-file infra/mocha-madness-cf-template.yml --s3-bucket mocha-madness-config --output-template-file infra/mocha-madness-cf-packaged.yml
       - name: Deploy CloudFormation stack
-        run: aws cloudformation deploy --stack-name mocha-madness-stack --template-file infra/stack-template-packaged.yml --region eu-west-1 --capabilities CAPABILITY_IAM
+        run: aws cloudformation deploy --stack-name mocha-madness-stack --template-file infra/mocha-madness-cf-packaged.yml --region eu-west-1 --capabilities CAPABILITY_IAM
