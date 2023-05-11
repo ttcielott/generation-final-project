@@ -2,6 +2,7 @@ AWSTemplateFormatVersion: 2010-09-09
 Description: 
   Template to deploy a lambda which is triggered by an S3 event. 
 
+
 Parameters:
   BucketNameRawData:
     Type: String
@@ -21,7 +22,6 @@ Parameters:
     Default: sg-0e6c507aa8ae2a367
   
 
-
 Resources:
   LambdaFunctionCsvReader: 
     Type: AWS::Lambda::Function
@@ -32,6 +32,7 @@ Resources:
       Role: arn:aws:iam::015206308301:role/lambda-execution-role
       Timeout: 300
       Code: ../src
+
 
   LambdaFunctionTableSchema:
     Type: AWS::Lambda::Function
@@ -44,9 +45,10 @@ Resources:
       Code: ../src
       VpcConfig:
         SecurityGroupIds:
-          - sg-0e6c507aa8ae2a367
+          - !Ref SecurityGroupId
         SubnetIds:
-          - subnet-01e8ba9e7640e0f56
+          - !Ref VpcSubnetId
+
 
   LambdaFunctionRedshift:
     Type: AWS::Lambda::Function
@@ -59,9 +61,9 @@ Resources:
       Code: ../src
       VpcConfig:
         SecurityGroupIds:
-          - sg-0e6c507aa8ae2a367
+          - !Ref SecurityGroupId
         SubnetIds:
-          - subnet-01e8ba9e7640e0f56
+          - !Ref VpcSubnetId
 
 
   S3BucketRawData:
@@ -75,6 +77,7 @@ Resources:
           - Event: s3:ObjectCreated:*
             Function: !GetAtt LambdaFunctionCsvReader.Arn
 
+
   S3BucketPermissionRawData:
     Type: AWS::Lambda::Permission
     Properties: 
@@ -82,6 +85,7 @@ Resources:
       FunctionName: !Ref LambdaFunctionCsvReader
       Principal: s3.amazonaws.com
       SourceArn: !Sub "arn:aws:s3:::${BucketNameRawData}"
+
 
   S3BucketTransformedData:
     Type: 'AWS::S3::Bucket'
@@ -93,6 +97,7 @@ Resources:
         LambdaConfigurations:
           - Event: s3:ObjectCreated:*
             Function: !GetAtt LambdaFunctionRedshift.Arn
+
 
   S3BucketPermissionTransformedData:
     Type: AWS::Lambda::Permission
