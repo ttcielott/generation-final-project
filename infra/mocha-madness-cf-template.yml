@@ -32,11 +32,6 @@ Resources:
       Role: arn:aws:iam::015206308301:role/lambda-execution-role
       Timeout: 300
       Code: ../src
-      VpcConfig:
-        SecurityGroupIds:
-          - !Ref SecurityGroupId
-        SubnetIds:
-          - !Ref VpcSubnetId
 
   LambdaFunctionTableSchema:
     Type: AWS::Lambda::Function
@@ -49,9 +44,9 @@ Resources:
       Code: ../src
       VpcConfig:
         SecurityGroupIds:
-          - !Ref SecurityGroupId
+          - sg-0e6c507aa8ae2a367
         SubnetIds:
-          - !Ref VpcSubnetId
+          - subnet-01e8ba9e7640e0f56
 
   LambdaFunctionRedshift:
     Type: AWS::Lambda::Function
@@ -64,9 +59,9 @@ Resources:
       Code: ../src
       VpcConfig:
         SecurityGroupIds:
-          - !Ref SecurityGroupId
+          - sg-0e6c507aa8ae2a367
         SubnetIds:
-          - !Ref VpcSubnetId
+          - subnet-01e8ba9e7640e0f56
 
 
   S3BucketRawData:
