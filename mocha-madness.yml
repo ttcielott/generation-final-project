@@ -6,11 +6,11 @@ Parameters:
   BucketNameRawData:
     Type: String
     Description: The raw data from each branch
-    Default: mocha-madness-raw-data
+    Default: mocha-madness-raw-data-v2
   BucketNameTransformedData:
     Type: String
     Description: The transformed data from each branch
-    Default: mocha-madness-transformed-data
+    Default: mocha-madness-transformed-data-v2
   VpcSubnetId:
     Type: String
     Description: The Redshift private subnet id
@@ -31,41 +31,36 @@ Resources:
       Role: arn:aws:iam::015206308301:role/lambda-execution-role
       Timeout: 300
       Code: ../src
-      VpcConfig: vpc-0352492da832498ae
-        SecurityGroupIds:
-          - sg-0e6c507aa8ae2a367
-        SubnetIds:
-          - subnet-01e8ba9e7640e0f56
 
   LambdaFunctionTableSchema:
     Type: AWS::Lambda::Function
     Properties:
-      FunctionName: mocha-madness-table-schema
+      FunctionName: mocha-madness-TableSchemaCreator
       Runtime: python3.10
       Handler: table-schema.lambda_function.lambda_handler
       Role: arn:aws:iam::015206308301:role/lambda-execution-role
       Timeout: 300
       Code: ../src
-      VpcConfig: vpc-0352492da832498ae
+      VpcConfig:
         SecurityGroupIds:
-          - sg-0e6c507aa8ae2a367
+          - !Ref SecurityGroupId
         SubnetIds:
-          - subnet-01e8ba9e7640e0f56
+          - !Ref VpcSubnetId
 
   LambdaFunctionRedshift:
     Type: AWS::Lambda::Function
     Properties:
-      FunctionName: mocha_madness_load_to_redshift
+      FunctionName: mocha_madness_RedshiftRoader
       Runtime: python3.10
       Handler: lambda_function.lambda_handler
       Role: arn:aws:iam::015206308301:role/lambda-execution-role
       Timeout: 300
       Code: ../src
-      VpcConfig: vpc-0352492da832498ae
+      VpcConfig:
         SecurityGroupIds:
-          - sg-0e6c507aa8ae2a367
+          - !Ref SecurityGroupId
         SubnetIds:
-          - subnet-01e8ba9e7640e0f56
+          - !Ref VpcSubnetId
 
 
   S3BucketRawData:
