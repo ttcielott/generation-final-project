@@ -1,8 +1,6 @@
 import csv
 import unittest
-from main_files.databaseconn_main import *
 from src.CSVReader.functions_transformation import *
-from src.load_to_redshift import *
 
 # load_dotenv('database/.env')  # load environment variables from .env file
 
