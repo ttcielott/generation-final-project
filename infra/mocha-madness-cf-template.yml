@@ -67,7 +67,7 @@ Resources:
 
 
   S3BucketRawData:
-    Type: 'AWS::S3::Bucket'
+    Type: AWS::S3::Bucket
     DependsOn:
       - S3BucketPermissionRawData
     Properties:
@@ -88,7 +88,7 @@ Resources:
 
 
   S3BucketTransformedData:
-    Type: 'AWS::S3::Bucket'
+    Type: AWS::S3::Bucket
     DependsOn:
       - S3BucketPermissionTransformedData
     Properties:
