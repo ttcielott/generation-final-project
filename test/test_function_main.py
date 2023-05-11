@@ -1,12 +1,8 @@
 import csv
 import unittest
-import psycopg2
-from dotenv import load_dotenv
 from main_files.databaseconn_main import *
 from src.CSVReader.functions_transformation import *
 from src.load_to_redshift import *
-from dotenv import load_dotenv
-from typing import List
 
 # load_dotenv('database/.env')  # load environment variables from .env file
 
