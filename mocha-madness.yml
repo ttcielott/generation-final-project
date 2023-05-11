@@ -3,14 +3,6 @@ Description:
   Template to deploy a lambda which is triggered by an S3 event. 
 
 Parameters:
-  DeploymentBucket:
-    Type: String
-    Description: Enter the name of the S3 bucket where your deployment package is.
-    Default: mocha-madness-config
-  DeploymentPackageKey:
-    Type: String
-    Description: Enter the name of the S3 key of your deployment package.
-    Default: mocha-madness-csv-reader-lambda-function.zip
   BucketNameRawData:
     Type: String
     Description: The raw data from each branch
@@ -39,8 +31,6 @@ Resources:
       Role: arn:aws:iam::015206308301:role/lambda-execution-role
       Timeout: 300
       Code: ../src
-        S3Bucket: !Ref DeploymentBucket
-        S3Key: !Ref DeploymentPackageKey
       VpcConfig: vpc-0352492da832498ae
         SecurityGroupIds:
           - sg-0e6c507aa8ae2a367
@@ -56,8 +46,6 @@ Resources:
       Role: arn:aws:iam::015206308301:role/lambda-execution-role
       Timeout: 300
       Code: ../src
-        S3Bucket: !Ref DeploymentBucket
-        S3Key: !Ref DeploymentPackageKey
       VpcConfig: vpc-0352492da832498ae
         SecurityGroupIds:
           - sg-0e6c507aa8ae2a367
@@ -73,8 +61,6 @@ Resources:
       Role: arn:aws:iam::015206308301:role/lambda-execution-role
       Timeout: 300
       Code: ../src
-        S3Bucket: !Ref DeploymentBucket
-        S3Key: !Ref DeploymentPackageKey
       VpcConfig: vpc-0352492da832498ae
         SecurityGroupIds:
           - sg-0e6c507aa8ae2a367
