@@ -1,5 +1,5 @@
 from database.redshift_db_conn import *
-from functions_orders import get_unique_orders_dictinaries
+from RedshiftLoader.functions_orders import get_unique_orders_dictinaries
 from typing import List
 from datetime import datetime
 

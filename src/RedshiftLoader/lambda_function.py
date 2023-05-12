@@ -2,10 +2,10 @@ import boto3
 import csv
 from io import StringIO
 from database.redshift_db_conn import *
-from redshift_table_insertion_products import *
-from redshift_table_insertion_branches import *
-from redshift_table_insertion_payments import *
-from redshift_table_insertion_transactions_n_orders import *
+from RedshiftLoader.redshift_table_insertion_products import *
+from RedshiftLoader.redshift_table_insertion_branches import *
+from RedshiftLoader.redshift_table_insertion_payments import *
+from RedshiftLoader.redshift_table_insertion_transactions_n_orders import *
 
 s3 = boto3.client('s3')
 

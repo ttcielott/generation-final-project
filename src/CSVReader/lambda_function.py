@@ -1,7 +1,7 @@
 import boto3
 import csv
 from io import StringIO
-from functions_transformation import *
+from CSVReader.functions_transformation import *
 
 s3 = boto3.client('s3')
 
