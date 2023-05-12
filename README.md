@@ -25,7 +25,7 @@ This is a software for a client, cafe business owner with multiple offline store
 - **unlike** the current software which is limited to sales tracking of one store at a time and data collation is time-consuming.<br>
 - **our product** will allow customers to utilise their sales data to drive business growth.
 
-This is a new line to test git action
+Hello to room demo 1
 
 
 ## Authors
