@@ -41,14 +41,12 @@ def load_to_table_transactions_n_orders(record_index: int, from_path: str, list_
         fetched_payment_method_id = cursor.fetchone()[0]
 
 
-        # insert 'branch_id', 'payment_method_id, 
-        # 'total_transaction_amount', 'transaction_date', 'transaction_time'
-        # of this transaction
+        # insert this transaction into the table, transactions
         cursor.execute(
             """
             BEGIN TRANSACTION;
-            INSERT INTO orders
-            (transaction_date, transaction_time, branch_id, ,payment_method_id, total_transaction_amount)
+            INSERT INTO transactions
+            (transaction_date, transaction_time, branch_id, payment_method_id, total_transaction_amount)
             VALUES (%s, %s, %s, %s, %s)
             SELECT transaction_id FROM transactions ORDER BY transaction_id DESC LIMIT 1; 
             END TRANSACTION;
@@ -79,7 +77,7 @@ def load_to_table_transactions_n_orders(record_index: int, from_path: str, list_
             # insert the information about this order into the table, orders
             cursor.execute(
             """
-            INSERT INTO order_product
+            INSERT INTO orders
             (transaction_id, product_id, order_qty)
             VALUES (%s, %s, %s)
             """,
