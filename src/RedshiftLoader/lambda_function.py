@@ -22,6 +22,7 @@ def lambda_handler(event, context):
         from_path = f's3://{bucket}/{key}'
         print(f'lambda_handler record_index= {record_index} from path {from_path}')
         
+        
         # access the conent of new data
         response = s3.get_object(Bucket=bucket, Key=key)
         print(f'lambda_handler s3 response = {response}')
