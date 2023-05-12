@@ -75,7 +75,7 @@ def collape_same_transactions_into_one(order_dict_list: List):
             order_dict['temp_transaction_id'] == new_order_dict_list[-1]['temp_transaction_id']:
             new_order_dict_list[-1]['orders_list'].append(single_order_dict)
         else:
-            order_dict['orders_list'] = single_order_dict
+            order_dict['orders_list'] = [single_order_dict]
             del order_dict['product_name']
             del order_dict['product_size']
             del order_dict['order_qty']
