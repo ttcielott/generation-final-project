@@ -199,10 +199,10 @@ def split_ordertime_as_column(list_of_data_list: List, column_number: int, sep: 
             original_data = data.copy()
             original_data.pop(column_number)
 
-            order_date = split_list[0]
-            order_time = split_list[1]
-            original_data.insert(1, order_date)
-            original_data.insert(2, order_time)
+            transaction_date = split_list[0]
+            transaction_time = split_list[1]
+            original_data.insert(1, transaction_date)
+            original_data.insert(2, transaction_time)
             list_of_new_data_list.append(original_data)
 
     return list_of_new_data_list
