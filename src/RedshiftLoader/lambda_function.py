@@ -5,7 +5,7 @@ from database.redshift_db_conn import *
 from redshift_table_insertion_products import *
 from redshift_table_insertion_branches import *
 from redshift_table_insertion_payments import *
-from redshift_table_insertion_orders import *
+from redshift_table_insertion_transactions_n_orders import *
 
 s3 = boto3.client('s3')
 
@@ -48,9 +48,9 @@ def lambda_handler(event, context):
         load_to_table_payments(record_index, from_path, data)
         print(f'lambda_handler record_index = {record_index} from path {from_path}, the function, load_to_table_payments is completed')
 
-        # table, orders & table, order_product
-        load_to_table_order_n_order_product(record_index, from_path, data)
-        print(f'lambda_handler record_index = {record_index} from path {from_path}, the function, load_to_table_order_n_order_product is completed')
+        # table, transactions & table, orders
+        load_to_table_transactions_n_orders(record_index, from_path, data)
+        print(f'lambda_handler record_index = {record_index} from path {from_path}, the function, load_to_table_transactions_n_order_produc is completed')
 
         
         
