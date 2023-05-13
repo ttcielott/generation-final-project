@@ -44,16 +44,16 @@ def load_to_table_transactions_n_orders(record_index: int, from_path: str, list_
         # insert this transaction into the table, transactions
         cursor.execute(
             """
-            BEGIN TRANSACTION;
+            BEGIN;
             INSERT INTO transactions
             (transaction_date, transaction_time, branch_id, payment_method_id, total_transaction_amount)
-            VALUES (%s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s);
+            COMMIT;
             SELECT transaction_id FROM transactions ORDER BY transaction_id DESC LIMIT 1; 
-            END TRANSACTION;
             """,
             (transaction_date, transaction_time, fetched_branch_id, fetched_payment_method_id, total_transaction_amount)
         )
-        transaction_id = cursor.fetchone()[0]
+        transaction_id = cursor.fetchone()
 
         # loop through one or more orders under this transaction
         for each_order_dict in orders_list:
