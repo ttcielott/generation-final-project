@@ -32,6 +32,11 @@ Resources:
       Role: arn:aws:iam::015206308301:role/lambda-execution-role
       Timeout: 300
       Code: ../src
+      Events:
+        MySQSEvent:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt CSVTransformerQueue.Arn
 
 
   LambdaFunctionTableSchema:
@@ -72,10 +77,32 @@ Resources:
       - S3BucketPermissionRawData
     Properties:
       BucketName: !Ref BucketNameRawData
+      DependsOn:
+        - CSVTransformerQueueQueuePolicy
       NotificationConfiguration:
-        LambdaConfigurations:
-          - Event: s3:ObjectCreated:*
-            Function: !GetAtt LambdaFunctionCSVTransformer.Arn
+        QueConfiguration:
+          - Event: s3:ObjectCreate:*
+            Queue: !GetAtt CSVTransformerQueue.Arn
+
+  CSVTransformerQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: !Ref CSVTransformerQueue
+
+  CSVTransformerQueueQueuePolicy:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      PolicyDocument:
+        Version: "2012-10-17"
+        Id: "__default_policy_ID"
+        Statement:
+          - Sid: Allow-S3-events
+            Effect: Allow
+            Principal: s3.amazonaws.com
+            Action: sqs:SendMessage
+            Resource: !GetAtt CSVTransformerQueue.Arn
+      Queues:
+        - Ref: CSVTransformerQueue
 
 
   S3BucketPermissionRawData:
