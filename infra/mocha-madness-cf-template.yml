@@ -85,7 +85,7 @@ Resources:
           - Event: s3:ObjectCreate:*
             Queue: !GetAtt QueueCSVTransformer.Arn
 
- QueueCSVTransformer:
+  QueueCSVTransformer:
     Type: AWS::SQS::Queue
     Properties:
       QueueName: !Ref QueueNameCSVTransformer
