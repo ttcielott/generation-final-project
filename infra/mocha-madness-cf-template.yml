@@ -77,11 +77,9 @@ Resources:
   S3BucketRawData:
     Type: AWS::S3::Bucket
     DependsOn:
-      - S3BucketPermissionRawData
+      - QueueCSVTransformerQueuePolicy
     Properties:
       BucketName: !Ref BucketNameRawData
-      DependsOn:
-        -  QueueCSVTransformerQueuePolicy
       NotificationConfiguration:
         QueConfiguration:
           - Event: s3:ObjectCreate:*
@@ -92,7 +90,21 @@ Resources:
     Properties:
       QueueName: !Ref QueueNameCSVTransformer
 
- QueueCSVTransformerQueuePolicy:
+
+
+  S3BucketTransformedData:
+    Type: AWS::S3::Bucket
+    DependsOn:
+      - S3BucketPermissionTransformedData
+    Properties:
+      BucketName: !Ref BucketNameTransformedData
+      NotificationConfiguration:
+        LambdaConfigurations:
+          - Event: s3:ObjectCreated:*
+            Function: !GetAtt LambdaFunctionRedshift.Arn
+
+
+ S3BucketPermissionRawData:
     Type: AWS::SQS::QueuePolicy
     Properties:
       PolicyDocument:
@@ -106,27 +118,6 @@ Resources:
             Resource: !GetAtt QueueCSVTransformer.Arn
       Queues:
         - Ref: QueueCSVTransformer
-
-
-  S3BucketPermissionRawData:
-    Type: AWS::Lambda::Permission
-    Properties: 
-      Action: lambda:InvokeFunction
-      FunctionName: !Ref LambdaFunctionCSVTransformer
-      Principal: s3.amazonaws.com
-      SourceArn: !Sub "arn:aws:s3:::${BucketNameRawData}"
-
-
-  S3BucketTransformedData:
-    Type: AWS::S3::Bucket
-    DependsOn:
-      - S3BucketPermissionTransformedData
-    Properties:
-      BucketName: !Ref BucketNameTransformedData
-      NotificationConfiguration:
-        LambdaConfigurations:
-          - Event: s3:ObjectCreated:*
-            Function: !GetAtt LambdaFunctionRedshift.Arn
 
 
   S3BucketPermissionTransformedData:
