@@ -82,7 +82,7 @@ Resources:
     Type: AWS::Lambda::Permission
     Properties: 
       Action: lambda:InvokeFunction
-      FunctionName: !Ref LambdaFunction
+      FunctionName: !Ref LambdaFunctionCSVTransformer
       Principal: s3.amazonaws.com
       SourceArn: !Sub "arn:aws:s3:::${BucketNameRawData}"
 
