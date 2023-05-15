@@ -1,6 +1,6 @@
 import csv
 import unittest
-from src..functions_transformation import *
+from src.CSVTransformer.functions_transformation import *
 
 # load_dotenv('database/.env')  # load environment variables from .env file
 
