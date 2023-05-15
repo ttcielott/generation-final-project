@@ -14,6 +14,7 @@ Parameters:
     Default: mocha-madness-transformed-data-v2
   QueueNameCSVTransformer:
     Type: String
+    Default: mocha-madness-CSVTransformer-queue
   VpcSubnetId:
     Type: String
     Description: The Redshift private subnet id
@@ -80,18 +81,18 @@ Resources:
     Properties:
       BucketName: !Ref BucketNameRawData
       DependsOn:
-        - CSVTransformerQueueQueuePolicy
+        -  QueueCSVTransformerQueuePolicy
       NotificationConfiguration:
         QueConfiguration:
           - Event: s3:ObjectCreate:*
-            Queue: !GetAtt CSVTransformerQueue.Arn
+            Queue: !GetAtt QueueCSVTransformer.Arn
 
-  CSVTransformerQueue:
+ QueueCSVTransformer:
     Type: AWS::SQS::Queue
     Properties:
       QueueName: !Ref QueueNameCSVTransformer
 
-  CSVTransformerQueueQueuePolicy:
+ QueueCSVTransformerQueuePolicy:
     Type: AWS::SQS::QueuePolicy
     Properties:
       PolicyDocument:
@@ -102,9 +103,9 @@ Resources:
             Effect: Allow
             Principal: s3.amazonaws.com
             Action: sqs:SendMessage
-            Resource: !GetAtt CSVTransformerQueue.Arn
+            Resource: !GetAtt QueueCSVTransformer.Arn
       Queues:
-        - Ref: CSVTransformerQueue
+        - Ref: QueueCSVTransformer
 
 
   S3BucketPermissionRawData:
