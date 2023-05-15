@@ -117,6 +117,9 @@ Resources:
               - AWS: arn:aws:iam::015206308301:root
             Action: sqs:SendMessage
             Resource: !GetAtt QueueCSVTransformer.Arn
+            Condition:
+              ArnLike:
+                aws:SourceArn: !Sub "arn:aws:s3:::${S3BucketRawData}"
       Queues:
         - Ref: QueueCSVTransformer
 
