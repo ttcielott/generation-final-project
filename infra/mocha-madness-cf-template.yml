@@ -12,6 +12,8 @@ Parameters:
     Type: String
     Description: The transformed data from each branch
     Default: mocha-madness-transformed-data-v2
+  QueueNameCSVTransformer:
+    Type: String
   VpcSubnetId:
     Type: String
     Description: The Redshift private subnet id
@@ -87,7 +89,7 @@ Resources:
   CSVTransformerQueue:
     Type: AWS::SQS::Queue
     Properties:
-      QueueName: !Ref CSVTransformerQueue
+      QueueName: !Ref QueueNameCSVTransformer
 
   CSVTransformerQueueQueuePolicy:
     Type: AWS::SQS::QueuePolicy
