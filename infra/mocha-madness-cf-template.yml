@@ -104,7 +104,7 @@ Resources:
             Function: !GetAtt LambdaFunctionRedshift.Arn
 
 
- S3BucketPermissionRawData:
+  S3BucketPermissionRawData:
     Type: AWS::SQS::QueuePolicy
     Properties:
       PolicyDocument:
