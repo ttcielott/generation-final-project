@@ -121,7 +121,7 @@ Resources:
       BatchSize: 10
       Enabled: true
       EventSourceArn: !GetAtt  QueueCSVTransformer.Arn
-      FunctionName: !Ref LambdaFunctionNameCSVTransformer
+      FunctionName: !GetAtt LambdaFunctionCSVTransformer.Arn
   
   
   EventSourceMapping:
@@ -130,7 +130,7 @@ Resources:
       BatchSize: 10
       Enabled: true
       EventSourceArn: !GetAtt QueueRedshiftLoader.Arn
-      FunctionName: !Ref LambdaFunctionNameRedshiftLoader
+      FunctionName: !GetAtt LambdaFunctionRedshift.Arn
 
 
   S3BucketTransformedData:
