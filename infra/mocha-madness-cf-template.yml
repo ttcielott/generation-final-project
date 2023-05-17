@@ -6,18 +6,28 @@ Description:
 Parameters:
   BucketNameRawData:
     Type: String
-    Description: The raw data from each branch
+    Description: The s3 bucket that receives new raw sales data from each branches
     Default: mocha-madness-raw-data-v2
   BucketNameTransformedData:
     Type: String
-    Description: The transformed data from each branch
+    Description: The s3 bucket that receives transfromed sales data from CSVTransformer Lambda
     Default: mocha-madness-transformed-data-v2
   QueueNameCSVTransformer:
     Type: String
+    Description: The queue that is to be triggered by raw data bucket
     Default: mocha-madness-CSVTransformer-queue
   QueueNameRedshiftLoader:
     Type: String
+    Description: The queue that is to be triggered by CSVTransformer lambda and send messange to RedshiftLoader lambda
     Default: mocha-madness-RedshiftLoader-queue
+  LambdaFunctionNameCSVTransformer:
+    Type: String
+    Description: The lambda that extracts data from raw data bucket, transforms and load on transform data bucket 
+    Default: mocha-madness-CSVTransformer
+  LambdaFunctionNameRedshiftLoader:
+    Type: String
+    Description: The lambda that loads transformed data to Redshift database
+    Default: mocha-madness-RedshiftLoader
   VpcSubnetId:
     Type: String
     Description: The Redshift private subnet id
@@ -32,7 +42,7 @@ Resources:
   LambdaFunctionCSVTransformer: 
     Type: AWS::Lambda::Function
     Properties:
-      FunctionName: mocha-madness-CSVTransformer
+      FunctionName: !Ref LambdaFunctionNameCSVTransformer
       Runtime: python3.10
       Handler: CSVTransformer.lambda_function.lambda_handler
       Role: arn:aws:iam::015206308301:role/lambda-execution-role
@@ -65,18 +75,13 @@ Resources:
   LambdaFunctionRedshift:
     Type: AWS::Lambda::Function
     Properties:
-      FunctionName: mocha_madness_RedshiftRoader
+      FunctionName: !Ref LambdaFunctionNameRedshiftLoader
       Runtime: python3.10
       Handler: RedshiftLoader.lambda_function.lambda_handler
       Role: arn:aws:iam::015206308301:role/lambda-execution-role
       Timeout: 900
       ReservedConcurrentExecutions: 1
       Code: ../src
-      Events:
-        MySQSEvent:
-          Type: SQS
-          Properties:
-            Queue: !GetAtt  QueueRedshiftLoader.Arn
       VpcConfig:
         SecurityGroupIds:
           - !Ref SecurityGroupId
@@ -108,6 +113,24 @@ Resources:
     Properties:
       QueueName: !Ref QueueNameRedshiftLoader
       VisibilityTimeout: 900
+
+
+  EventSourceMapping:
+    Type: AWS::Lambda::EventSourceMapping
+    Properties: 
+      BatchSize: 10
+      Enabled: true
+      EventSourceArn: !GetAtt  QueueCSVTransformer.Arn
+      FunctionName: !Ref LambdaFunctionNameCSVTransformer
+  
+  
+  EventSourceMapping:
+    Type: AWS::Lambda::EventSourceMapping
+    Properties: 
+      BatchSize: 10
+      Enabled: true
+      EventSourceArn: !GetAtt QueueRedshiftLoader.Arn
+      FunctionName: !Ref LambdaFunctionNameRedshiftLoader
 
 
   S3BucketTransformedData:
