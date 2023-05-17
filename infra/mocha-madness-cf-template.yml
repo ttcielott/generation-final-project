@@ -112,8 +112,6 @@ Resources:
 
   S3BucketTransformedData:
     Type: AWS::S3::Bucket
-    DependsOn:
-      - S3BucketPermissionTransformedData
     Properties:
       BucketName: !Ref BucketNameTransformedData
 
