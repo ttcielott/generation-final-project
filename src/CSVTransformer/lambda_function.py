@@ -62,7 +62,6 @@ def lambda_handler(event, context):
             response = sqs.send_message(
                 QueueUrl= queue_url,
                 DelaySeconds=10,
-    
                 MessageBody=(message_text)
             )
             print(f'lambda_handler sent message to {queue_name} for key = {key}')
