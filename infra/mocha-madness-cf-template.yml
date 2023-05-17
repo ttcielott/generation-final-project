@@ -49,11 +49,6 @@ Resources:
       Timeout: 300
       ReservedConcurrentExecutions: 1
       Code: ../src
-      Events:
-        MySQSEvent:
-          Type: SQS
-          Properties:
-            Queue: !GetAtt  QueueCSVTransformer.Arn
 
 
   LambdaFunctionTableSchema:
