@@ -105,8 +105,9 @@ Resources:
 
   QueueRedshiftLoader:
     Type: AWS::SQS::Queue
-    Properties: 900
+    Properties:
       QueueName: !Ref QueueNameRedshiftLoader
+      VisibilityTimeout: 900
 
 
   S3BucketTransformedData:
