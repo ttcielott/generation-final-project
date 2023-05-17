@@ -27,7 +27,6 @@ def lambda_handler(event, context):
         store = key.split('/')[-1].split('_')[0]
 
         # Transform the data
-        #transformed_data = transform_data(data)
         transformed_data = transform_branch_file(data)
         print(f'lambda_handler transform_data rows = {len(transformed_data)} for file {store}')
         
