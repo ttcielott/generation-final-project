@@ -1,5 +1,3 @@
-import boto3
-import json
 from database.redshift_db_conn import conn, cursor
 
 def create_db_tables(conn, cursor):
@@ -30,28 +28,28 @@ def create_db_tables(conn, cursor):
                 PRIMARY KEY (payment_method_id)
             );
         """
-        create_orders_table = \
+        create_transactions_table = \
         """
-        CREATE TABLE IF NOT EXISTS orders(
-            order_id int identity(1,1) NOT NULL,
+        CREATE TABLE IF NOT EXISTS transactions(
+            transaction_id int identity(1,1) NOT NULL,
+            transaction_date date,
+            transaction_time time,
             branch_id int NOT NULL,
             payment_method_id int NOT NULL,
-            total_order_amount decimal(19,2),
-            order_date date,
-            order_time time,
-            PRIMARY KEY (order_id),
+            total_transaction_amount decimal(19,2),
+            PRIMARY KEY (transaction_id),
             FOREIGN KEY (branch_id) REFERENCES branches(branch_id),
             FOREIGN KEY (payment_method_id) REFERENCES payments(payment_method_id)
         );
         """
-        create_order_product_table = \
+        create_orders_table = \
         """
-            CREATE TABLE IF NOT EXISTS order_product(
-                order_id int NOT NULL,
+            CREATE TABLE IF NOT EXISTS orders(
+                transaction_id int NOT NULL,
                 product_id int NOT NULL,
                 order_qty int NOT NULL,
-                PRIMARY KEY (order_id, product_id, order_qty),
-                FOREIGN KEY (order_id) REFERENCES orders(order_id),
+                PRIMARY KEY (transaction_id, product_id, order_qty),
+                FOREIGN KEY (transaction_id) REFERENCES transactions(transaction_id),
                 FOREIGN KEY (product_id) REFERENCES products(product_id)
                
             );
@@ -63,10 +61,10 @@ def create_db_tables(conn, cursor):
         print('create_branches_table is completed')
         cursor.execute(create_payments_table)
         print('create_payments_table is completed')
+        cursor.execute(create_transactions_table)
+        print('create_transactions_table is completed')
         cursor.execute(create_orders_table)
-        print('create_order_table is completed')
-        cursor.execute(create_order_product_table)
-        print('create_orde_product_table is completed')
+        print('create_orders_table is completed')
         conn.commit()
         cursor.close()
         conn.close()

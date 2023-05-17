@@ -49,7 +49,7 @@ def add_temp_transaction_id(list_of_data_list):
         
 
 def split_into_order(list_of_data_list, column_number, sep = ','):
-    """make one row contain a single menu order. 
+    """make one row contain a single menu order and count add the number of the orders as a separate data
 
     Args:
         list_of_data_list: list, list of list from source csv file
@@ -59,12 +59,12 @@ def split_into_order(list_of_data_list, column_number, sep = ','):
     Returns:
         a list of list of data that each list is about one menu order
         example:
-            original data: [['tom', 'Large Flavoured latte - Hazelnut - 2.85, Regular Flat white - 2.15', 13.0]]
+            original data: [[1, '05/05/2012 09:00', 'Large Flavoured latte - Hazelnut - 2.85, Regular Flat white - 2.15', 13.0]]
             column_numbers: [1]
 
             output:
-            [['tom','Large Flavoured latte - Hazelnut - 2.85', 13.0],
-             ['tom','Regular Flat white - 2.15', 13.0]]
+            [[1, '05/05/2012 09:00', 'Mochafield', 'Large Flavoured latte - Hazelnut - 2.85', 1, 13.0],
+             [1, '05/05/2012 09:00', 'Mochafield', 'Regular Flat white - 2.15', 1, 13.0]]
     """
     list_of_new_data_list =[]
     for data in list_of_data_list:
@@ -161,7 +161,7 @@ def split_unitprice_as_column(list_of_data_list: List, column_number: int, sep: 
             original_data.pop(column_number)
 
             product_name = split_list[0]
-            unit_price = split_list[1]
+            unit_price = float(split_list[1])
             original_data.insert(3, product_name)
             original_data.insert(5, unit_price)
 
@@ -199,10 +199,10 @@ def split_ordertime_as_column(list_of_data_list: List, column_number: int, sep: 
             original_data = data.copy()
             original_data.pop(column_number)
 
-            order_date = split_list[0]
-            order_time = split_list[1]
-            original_data.insert(1, order_date)
-            original_data.insert(2, order_time)
+            transaction_date = split_list[0]
+            transaction_time = split_list[1]
+            original_data.insert(1, transaction_date)
+            original_data.insert(2, transaction_time)
             list_of_new_data_list.append(original_data)
 
     return list_of_new_data_list

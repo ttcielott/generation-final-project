@@ -56,5 +56,3 @@ def lambda_handler(event, context):
         
         
         return 'test is done.'
-
-        
