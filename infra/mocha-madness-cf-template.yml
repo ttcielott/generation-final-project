@@ -15,6 +15,9 @@ Parameters:
   QueueNameCSVTransformer:
     Type: String
     Default: mocha-madness-CSVTransformer-queue
+  QueueNameRedshiftLoader:
+    Type: String
+    Default: mocha-madness-RedshiftLoader-queue
   VpcSubnetId:
     Type: String
     Description: The Redshift private subnet id
@@ -67,6 +70,11 @@ Resources:
       Role: arn:aws:iam::015206308301:role/lambda-execution-role
       Timeout: 900
       Code: ../src
+      Events:
+        MySQSEvent:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt  QueueRedshiftLoader.Arn
       VpcConfig:
         SecurityGroupIds:
           - !Ref SecurityGroupId
@@ -85,11 +93,17 @@ Resources:
           - Event: s3:ObjectCreate:*
             Queue: !GetAtt QueueCSVTransformer.Arn
 
+
   QueueCSVTransformer:
     Type: AWS::SQS::Queue
     Properties:
       QueueName: !Ref QueueNameCSVTransformer
+      VisibilityTimeout: 300
 
+  QueueRedshiftLoader:
+    Type: AWS::SQS::Queue
+    Properties: 900
+      QueueName: !Ref QueueNameRedshiftLoader
 
 
   S3BucketTransformedData:
@@ -98,10 +112,6 @@ Resources:
       - S3BucketPermissionTransformedData
     Properties:
       BucketName: !Ref BucketNameTransformedData
-      NotificationConfiguration:
-        LambdaConfigurations:
-          - Event: s3:ObjectCreated:*
-            Function: !GetAtt LambdaFunctionRedshift.Arn
 
 
   S3BucketPermissionRawData:
@@ -122,12 +132,3 @@ Resources:
                 aws:SourceArn: !Sub "arn:aws:s3:::${BucketNameRawData}"
       Queues:
         - Ref: QueueCSVTransformer
-
-
-  S3BucketPermissionTransformedData:
-    Type: AWS::Lambda::Permission
-    Properties: 
-      Action: lambda:InvokeFunction
-      FunctionName: !Ref LambdaFunctionRedshift
-      Principal: s3.amazonaws.com
-      SourceArn: !Sub "arn:aws:s3:::${BucketNameTransformedData}"

@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - main
+      - dana-sqs-cloudformation
     workflow_dispatch:
       inputs:
         environment:
