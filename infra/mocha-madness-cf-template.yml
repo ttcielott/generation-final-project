@@ -102,6 +102,7 @@ Resources:
       QueueName: !Ref QueueNameCSVTransformer
       VisibilityTimeout: 300
 
+
   QueueRedshiftLoader:
     Type: AWS::SQS::Queue
     Properties: 900
