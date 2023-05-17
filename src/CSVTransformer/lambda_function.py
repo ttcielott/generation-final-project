@@ -69,4 +69,4 @@ def lambda_handler(event, context):
             print(f'lambda_handler finished for key = {key}')
     
     except Exception as e:
-        print(f'Error in lambda_handler = ${e}')
+        print(f'Error in lambda_handler = {e}')
