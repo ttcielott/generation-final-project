@@ -87,7 +87,7 @@ Resources:
   S3BucketRawData:
     Type: AWS::S3::Bucket
     DependsOn:
-      - S3BucketPermissionRawData
+      - S3BucketQueuePermissionRawData
     Properties:
       BucketName: !Ref BucketNameRawData
       NotificationConfiguration:
@@ -116,7 +116,7 @@ Resources:
       BucketName: !Ref BucketNameTransformedData
 
 
-  S3BucketPermissionRawData:
+  S3BucketQueuePermissionRawData:
     Type: AWS::SQS::QueuePolicy
     Properties:
       PolicyDocument:
