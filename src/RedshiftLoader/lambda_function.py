@@ -19,8 +19,8 @@ def lambda_handler(event, context):
             message_body = msg['body']
             msg_body_json = json.loads(message_body)
             print(f'lambda_handler: msg_body_json loaded okay')
-            bucket = msg_body_json['Records'][0]['s3']['bucket']['name']
-            key = msg_body_json['Records'][0]['s3']['object']['key']
+            bucket = msg_body_json['bucket']
+            key = msg_body_json['key']
             print(f'lambda_handler: bucket = {bucket} and key = {key}')
                     
             from_path = f's3://{bucket}/{key}'
