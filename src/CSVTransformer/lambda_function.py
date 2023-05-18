@@ -50,7 +50,7 @@ def lambda_handler(event, context):
             
             # Create SQS client
             sqs = boto3.client('sqs')
-            queue_name = 'mocha-madness-redshift-loader-queue'
+            queue_name = 'mocha-madness-RedshiftLoader-queue'
             queue_url = f'https://sqs.eu-west-1.amazonaws.com/015206308301/{queue_name}'
             message_json = {'bucket': tranformed_bucket, 'key': key}
             # covert into json string
