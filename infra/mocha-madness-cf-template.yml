@@ -92,7 +92,7 @@ Resources:
       BucketName: !Ref BucketNameRawData
       NotificationConfiguration:
         QueueConfigurations:
-          - Event: s3:ObjectCreate:*
+          - Event: s3:ObjectCreated:*
             Queue: !GetAtt QueueCSVTransformer.Arn
 
 
