@@ -150,4 +150,4 @@ Resources:
               ArnLike:
                 aws:SourceArn: !Sub "arn:aws:s3:::${BucketNameRawData}"
       Queues:
-        - Ref: QueueCSVTransformer
+        - !Ref QueueCSVTransformer
