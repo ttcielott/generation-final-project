@@ -144,7 +144,7 @@ Resources:
           - Sid: Allow-S3-events
             Effect: Allow
             Principal:
-              - AWS: arn:aws:iam::015206308301:root
+              - AWS: "s3.amazonaws.com"
             Action: sqs:SendMessage
             Resource: !GetAtt QueueCSVTransformer.Arn
             Condition:
