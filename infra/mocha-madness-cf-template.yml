@@ -139,7 +139,6 @@ Resources:
     Properties:
       PolicyDocument:
         Version: "2012-10-17"
-        Id: "__default_policy_ID"
         Statement:
           - Sid: Allow-S3-events
             Effect: Allow
