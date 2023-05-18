@@ -110,7 +110,7 @@ Resources:
       VisibilityTimeout: 900
 
 
-  EventSourceMapping:
+  S3ToCSVTransformerEventSourceMapping:
     Type: AWS::Lambda::EventSourceMapping
     Properties: 
       BatchSize: 10
@@ -119,7 +119,7 @@ Resources:
       FunctionName: !GetAtt LambdaFunctionCSVTransformer.Arn
   
   
-  EventSourceMapping:
+  QueueRedshiftToRedShiftLoaderEventSourceMapping:
     Type: AWS::Lambda::EventSourceMapping
     Properties: 
       BatchSize: 10
@@ -150,5 +150,8 @@ Resources:
             Condition:
               ArnLike:
                 aws:SourceArn: !Sub "arn:aws:s3:::${BucketNameRawData}"
+              StringEquals:
+                aws:SourceAccount:
+                  Ref: AWS::AccountId
       Queues:
         - !Ref QueueCSVTransformer
