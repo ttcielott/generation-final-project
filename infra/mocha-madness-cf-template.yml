@@ -140,7 +140,7 @@ Resources:
       PolicyDocument:
         Version: "2012-10-17"
         Statement:
-          - Sid: Allow-S3-events
+          - 
             Effect: Allow
             Principal:
               - AWS: "s3.amazonaws.com"
