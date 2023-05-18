@@ -37,7 +37,7 @@ def insert_payment(conn, cursor, payment_method_name: str):
     existing_payment_method = cursor.fetchone()[0]
 
     if existing_payment_method :
-        print(f"The payment method, {payment_method_name} already exists in the database.")
+        pass
 
     else:
         sql = '''INSERT INTO payments 
@@ -47,7 +47,6 @@ def insert_payment(conn, cursor, payment_method_name: str):
         data_values = (payment_method_name,)
         cursor.execute(sql, data_values)
         conn.commit()
-        print(f'New row with {payment_method_name} was inserted.')
 
 
 
