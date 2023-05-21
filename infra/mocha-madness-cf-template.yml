@@ -108,7 +108,7 @@ Resources:
   DLQCSVTransformer:
     Type: AWS::SQS::Queue
     Properties: 
-      QueueName: Sub: ${LambdaFunctionNameCSVTransformer}-DLQ
+      QueueName: Sub! "${LambdaFunctionNameCSVTransformer}-DLQ"
       RedriveAllowPolicy: {"redrivePermission": "byQueue", "sourceQueueArns": !GetAtt QueueCSVTransformer.Arn}
 
 
@@ -125,7 +125,7 @@ Resources:
   DLQRedshiftLoader:
     Type: AWS::SQS::Queue
     Properties: 
-      QueueName: Sub: ${LambdaFunctionNameRedshiftLoader}-DLQ
+      QueueName: !Sub "${LambdaFunctionNameRedshiftLoader}-DLQ"
       RedriveAllowPolicy: {"redrivePermission": "byQueue", "sourceQueueArns": !GetAtt QueueRedshiftLoader.Arn}
 
 
