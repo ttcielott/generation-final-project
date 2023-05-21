@@ -110,7 +110,6 @@ Resources:
     Type: AWS::SQS::Queue
     Properties: 
       QueueName: !Sub "${LambdaFunctionNameCSVTransformer}-DLQ"
-      RedriveAllowPolicy: {"redrivePermission": "byQueue", "sourceQueueArns": !GetAtt QueueCSVTransformer.Arn}
 
 
   QueueRedshiftLoader:
@@ -127,7 +126,6 @@ Resources:
     Type: AWS::SQS::Queue
     Properties: 
       QueueName: !Sub "${LambdaFunctionNameRedshiftLoader}-DLQ"
-      RedriveAllowPolicy: {"redrivePermission": "byQueue", "sourceQueueArns": !GetAtt QueueRedshiftLoader.Arn}
 
 
   S3ToCSVTransformerEventSourceMapping:
