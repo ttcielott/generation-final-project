@@ -1,6 +1,6 @@
 # moccha-madness-final-project
 
-## About:
+## About
 This is a software for a client, cafe business owner with multiple offline stores. The client's exisiting software generates daily sales data at a single store and does not provide compiled data of all stores to provide the overview of whole business performance and makes it hard to draw valuable insight such as how to target customers and the best-selling products. This software will deliver ETL pipeline; extracting sales data from client's source, transforming data, and loading on client's data warehouse. 
 <br>
 > **Current Client Setup:**
@@ -14,7 +14,7 @@ This is a software for a client, cafe business owner with multiple offline store
 - The new software should have ETL pipeline.
 - The new software should have monitoring system.
 
-## Elevator Pitch:
+## Elevator Pitch
 
 - **For** cafe business owner with multiple branches
 - **who** wants to see the whole picture of their business <br>
@@ -45,7 +45,7 @@ git commit
 ```
 ## Initial Setup:
 ----------
-### Run Bash Script file
+### Run Bash Script file:
 After git clone this repository, you can run the following bash script file for initial setup (docker compose, creation of a virtual environment, package installation, and activation of a virtual environment).
 
 ```
@@ -87,9 +87,9 @@ Windows - py -m <folder name>.<filename only without extension i.e .py>
 Mac - python -m m<folder name>.<filename only without extension i.e .py>
 ```
 
-## Grafana Sales Dashboard:
+## Grafana Sales Dashboard
 
-- After CSV files go through our ETL pipeline, it is stored in a redshift db
+- After CSV files go through our ETL pipeline, the tranformed files are then stored in a Redshift DB
 - We created a dashboard to enable the our client to view relevant information on the company's performance  
 
 ![Sales Dashboard](/Documentation/Grafana-sales.png)
