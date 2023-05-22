@@ -74,7 +74,7 @@ Resources:
       Runtime: python3.10
       Handler: RedshiftLoader.lambda_function.lambda_handler
       Role: arn:aws:iam::015206308301:role/lambda-execution-role
-      Timeout: 900
+      Timeout: 300
       ReservedConcurrentExecutions: 1
       Code: ../src
       VpcConfig:
@@ -92,7 +92,7 @@ Resources:
       BucketName: !Ref BucketNameRawData
       NotificationConfiguration:
         QueueConfigurations:
-          - Event: s3:ObjectCreate:*
+          - Event: s3:ObjectCreated:*
             Queue: !GetAtt QueueCSVTransformer.Arn
 
 
@@ -100,17 +100,35 @@ Resources:
     Type: AWS::SQS::Queue
     Properties:
       QueueName: !Ref QueueNameCSVTransformer
-      VisibilityTimeout: 300
+      VisibilityTimeout: 400
+      RedrivePolicy: 
+        deadLetterTargetArn: !GetAtt DLQCSVTransformer.Arn
+        maxReceiveCount: 5
+
+
+  DLQCSVTransformer:
+    Type: AWS::SQS::Queue
+    Properties: 
+      QueueName: !Sub "${LambdaFunctionNameCSVTransformer}-DLQ"
 
 
   QueueRedshiftLoader:
     Type: AWS::SQS::Queue
     Properties:
       QueueName: !Ref QueueNameRedshiftLoader
-      VisibilityTimeout: 900
+      VisibilityTimeout: 400
+      RedrivePolicy: 
+        deadLetterTargetArn: !GetAtt DLQRedshiftLoader.Arn
+        maxReceiveCount: 5
 
 
-  EventSourceMapping:
+  DLQRedshiftLoader:
+    Type: AWS::SQS::Queue
+    Properties: 
+      QueueName: !Sub "${LambdaFunctionNameRedshiftLoader}-DLQ"
+
+
+  S3ToCSVTransformerEventSourceMapping:
     Type: AWS::Lambda::EventSourceMapping
     Properties: 
       BatchSize: 10
@@ -119,7 +137,7 @@ Resources:
       FunctionName: !GetAtt LambdaFunctionCSVTransformer.Arn
   
   
-  EventSourceMapping:
+  QueueRedshiftToRedShiftLoaderEventSourceMapping:
     Type: AWS::Lambda::EventSourceMapping
     Properties: 
       BatchSize: 10
@@ -139,16 +157,19 @@ Resources:
     Properties:
       PolicyDocument:
         Version: "2012-10-17"
-        Id: "__default_policy_ID"
+        Id: S3-to-queue
         Statement:
-          - Sid: Allow-S3-events
+          - Sid: Allow-SendMessage-To-Queue-From-S3-Event-Notification
             Effect: Allow
             Principal:
-              - AWS: arn:aws:iam::015206308301:root
+              Service: "s3.amazonaws.com"
             Action: sqs:SendMessage
             Resource: !GetAtt QueueCSVTransformer.Arn
             Condition:
               ArnLike:
                 aws:SourceArn: !Sub "arn:aws:s3:::${BucketNameRawData}"
+              StringEquals:
+                aws:SourceAccount:
+                  Ref: AWS::AccountId
       Queues:
-        - Ref: QueueCSVTransformer
+        - !Ref QueueCSVTransformer

@@ -55,26 +55,16 @@ def insert_product(record_index, from_path, conn, cursor, product_info):
         existing_product_info = cursor.fetchone()[0]
 
         if existing_product_info :
-                print(f'''lambda_handler record_index = {record_index} from path {from_path}, 
-                    The product information,
-                    [product_name: {product_info[0]}, 
-                    product_size: {product_info[1]}, 
-                    product_price: {product_info[2]}] already exists in the database.''')
+            pass
 
         else:
-                sql = f"""
-                    INSERT INTO products(product_name, product_size, product_price)
-                    VALUES (%s, %s, %s);
-                    """
-                cursor.execute(sql, data_values)
-                conn.commit()
-        
-                print(f'''lambda_handler record_index = {record_index} from path {from_path}, 
-                    New row with the product information,
-                    [product_name: {product_info[0]}, 
-                    product_size: {product_info[1]}, 
-                    product_price: {product_info[2]}] was inserted.''')
-                
+            sql = f"""
+                INSERT INTO products(product_name, product_size, product_price)
+                VALUES (%s, %s, %s);
+                """
+            cursor.execute(sql, data_values)
+            conn.commit()
+                    
     except Exception as e:
         print(f'''lambda_handler record_index = {record_index}
                     from path {from_path},

@@ -33,7 +33,7 @@ def insert_branch(record_index: int, from_path:str, conn, cursor, branch_name: s
         existing_branch = cursor.fetchone()[0]
 
         if existing_branch:
-            print(f"Branch with name {branch_name} already exists in the database.")
+            pass
         else:
             sql = '''INSERT INTO branches 
                     (branch_name)
@@ -43,7 +43,6 @@ def insert_branch(record_index: int, from_path:str, conn, cursor, branch_name: s
 
             cursor.execute(sql, data_values)
             conn.commit()
-            print(f"New row with branch name {branch_name} was inserted.")
     except Exception as e:
         print(f"""lambda_handler record_index = {record_index}
                     from path {from_path},
