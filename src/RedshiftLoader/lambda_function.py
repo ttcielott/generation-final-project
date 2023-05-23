@@ -58,3 +58,8 @@ def lambda_handler(event, context):
             print(f'lambda_handler finished for from_path = {from_path}')
     except Exception as e:
         print(f'Error in lambda_handler = {e}')
+        
+    return {
+        'statusCode': 200,
+        'body': json.dumps('mocha-madness-RedshiftLoader completed!')
+    }
