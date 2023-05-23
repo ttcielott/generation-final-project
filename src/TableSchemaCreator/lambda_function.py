@@ -1,4 +1,5 @@
 from database.redshift_db_conn import conn, cursor
+import json
 
 def create_db_tables(conn, cursor):
     try:
@@ -79,5 +80,8 @@ def lambda_handler(event, context):
     create_db_tables(conn, cursor)
     print('create_db_tables is completed.')
     
-    print()
+    return {
+        'statusCode': 200,
+        'body': json.dumps('mocha-madness-TableSchemaCreator completed!')
+    }
         
