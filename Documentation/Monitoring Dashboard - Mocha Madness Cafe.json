@@ -1,0 +1,1532 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_CLOUDWATCH",
+      "label": "CloudWatch",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "cloudwatch",
+      "pluginName": "CloudWatch"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "datasource",
+      "id": "cloudwatch",
+      "name": "CloudWatch",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "9.5.2"
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "This dashboard will monitor the performance of Lambda functions ",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 15,
+      "panels": [
+        {
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "${DS_CLOUDWATCH}"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 5,
+            "x": 0,
+            "y": 1
+          },
+          "id": 10,
+          "options": {
+            "legend": {
+              "calcs": [
+                "sum"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "9.5.2",
+          "targets": [
+            {
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "${DS_CLOUDWATCH}"
+              },
+              "dimensions": {
+                "QueueName": "mocha-madness-CSVTransformer-queue"
+              },
+              "expression": "",
+              "id": "",
+              "label": "",
+              "logGroups": [
+                {
+                  "accountId": "015206308301",
+                  "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVReader:*",
+                  "name": "/aws/lambda/mocha-madness-CSVReader"
+                },
+                {
+                  "accountId": "015206308301",
+                  "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVTransformer:*",
+                  "name": "/aws/lambda/mocha-madness-CSVTransformer"
+                }
+              ],
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "NumberOfMessagesSent",
+              "metricQueryType": 0,
+              "namespace": "AWS/SQS",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "A",
+              "region": "eu-west-1",
+              "sqlExpression": "",
+              "statistic": "Sum"
+            },
+            {
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "${DS_CLOUDWATCH}"
+              },
+              "dimensions": {
+                "QueueName": "mocha-madness-CSVTransformer-queue"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "",
+              "logGroups": [
+                {
+                  "accountId": "015206308301",
+                  "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVReader:*",
+                  "name": "/aws/lambda/mocha-madness-CSVReader"
+                },
+                {
+                  "accountId": "015206308301",
+                  "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVTransformer:*",
+                  "name": "/aws/lambda/mocha-madness-CSVTransformer"
+                }
+              ],
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "NumberOfMessagesReceived",
+              "metricQueryType": 0,
+              "namespace": "AWS/SQS",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "B",
+              "region": "eu-west-1",
+              "sqlExpression": "",
+              "statistic": "Sum"
+            },
+            {
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "${DS_CLOUDWATCH}"
+              },
+              "dimensions": {
+                "QueueName": "mocha-madness-CSVTransformer-queue"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "",
+              "logGroups": [
+                {
+                  "accountId": "015206308301",
+                  "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVReader:*",
+                  "name": "/aws/lambda/mocha-madness-CSVReader"
+                },
+                {
+                  "accountId": "015206308301",
+                  "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVTransformer:*",
+                  "name": "/aws/lambda/mocha-madness-CSVTransformer"
+                }
+              ],
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "NumberOfMessagesDeleted",
+              "metricQueryType": 0,
+              "namespace": "AWS/SQS",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "C",
+              "region": "default",
+              "sqlExpression": "",
+              "statistic": "Sum"
+            }
+          ],
+          "title": "SQS - CSVTransformer Queue (Sent/Received/Deleted)",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "${DS_CLOUDWATCH}"
+          },
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 5,
+            "x": 5,
+            "y": 1
+          },
+          "id": 11,
+          "options": {
+            "legend": {
+              "calcs": [
+                "sum"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "9.5.2",
+          "targets": [
+            {
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "${DS_CLOUDWATCH}"
+              },
+              "dimensions": {
+                "QueueName": "mocha-madness-RedshiftLoader-queue"
+              },
+              "expression": "",
+              "id": "",
+              "label": "",
+              "logGroups": [
+                {
+                  "accountId": "015206308301",
+                  "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVReader:*",
+                  "name": "/aws/lambda/mocha-madness-CSVReader"
+                },
+                {
+                  "accountId": "015206308301",
+                  "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVTransformer:*",
+                  "name": "/aws/lambda/mocha-madness-CSVTransformer"
+                }
+              ],
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "NumberOfMessagesSent",
+              "metricQueryType": 0,
+              "namespace": "AWS/SQS",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "A",
+              "region": "eu-west-1",
+              "sqlExpression": "",
+              "statistic": "Sum"
+            },
+            {
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "${DS_CLOUDWATCH}"
+              },
+              "dimensions": {
+                "QueueName": "mocha-madness-RedshiftLoader-queue"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "",
+              "logGroups": [
+                {
+                  "accountId": "015206308301",
+                  "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVReader:*",
+                  "name": "/aws/lambda/mocha-madness-CSVReader"
+                },
+                {
+                  "accountId": "015206308301",
+                  "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVTransformer:*",
+                  "name": "/aws/lambda/mocha-madness-CSVTransformer"
+                }
+              ],
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "NumberOfMessagesReceived",
+              "metricQueryType": 0,
+              "namespace": "AWS/SQS",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "B",
+              "region": "eu-west-1",
+              "sqlExpression": "",
+              "statistic": "Sum"
+            },
+            {
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "${DS_CLOUDWATCH}"
+              },
+              "dimensions": {
+                "QueueName": "mocha-madness-RedshiftLoader-queue"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "",
+              "logGroups": [
+                {
+                  "accountId": "015206308301",
+                  "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVReader:*",
+                  "name": "/aws/lambda/mocha-madness-CSVReader"
+                },
+                {
+                  "accountId": "015206308301",
+                  "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVTransformer:*",
+                  "name": "/aws/lambda/mocha-madness-CSVTransformer"
+                }
+              ],
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "NumberOfMessagesDeleted",
+              "metricQueryType": 0,
+              "namespace": "AWS/SQS",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "C",
+              "region": "default",
+              "sqlExpression": "",
+              "statistic": "Sum"
+            }
+          ],
+          "title": "SQS - RedshiftLoader Queue (Sent/Received/Deleted)",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "${DS_CLOUDWATCH}"
+          },
+          "description": "The number of messages available for retrieval from the dead letter queue",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 11,
+            "x": 10,
+            "y": 1
+          },
+          "id": 13,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "${DS_CLOUDWATCH}"
+              },
+              "dimensions": {
+                "QueueName": "mocha-madness-CSVTransformer-DLQ"
+              },
+              "expression": "",
+              "id": "",
+              "label": "",
+              "logGroups": [
+                {
+                  "accountId": "015206308301",
+                  "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVReader:*",
+                  "name": "/aws/lambda/mocha-madness-CSVReader"
+                },
+                {
+                  "accountId": "015206308301",
+                  "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVTransformer:*",
+                  "name": "/aws/lambda/mocha-madness-CSVTransformer"
+                }
+              ],
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "ApproximateNumberOfMessagesVisible",
+              "metricQueryType": 0,
+              "namespace": "AWS/SQS",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "A",
+              "region": "default",
+              "sqlExpression": "",
+              "statistic": "Sum"
+            },
+            {
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "${DS_CLOUDWATCH}"
+              },
+              "dimensions": {
+                "QueueName": "mocha-madness-RedshiftLoader-DLQ"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "",
+              "logGroups": [
+                {
+                  "accountId": "015206308301",
+                  "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVReader:*",
+                  "name": "/aws/lambda/mocha-madness-CSVReader"
+                },
+                {
+                  "accountId": "015206308301",
+                  "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVTransformer:*",
+                  "name": "/aws/lambda/mocha-madness-CSVTransformer"
+                }
+              ],
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "ApproximateNumberOfMessagesVisible",
+              "metricQueryType": 0,
+              "namespace": "AWS/SQS",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "B",
+              "region": "default",
+              "sqlExpression": "",
+              "statistic": "Sum"
+            }
+          ],
+          "title": "SQS - Dead Letter Queue (Message Available)",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "${DS_CLOUDWATCH}"
+          },
+          "description": "After a message is received three times (or more) and not processed, the message is moved to the back of the queue and the ApproximateAgeOfOldestMessage metric points at the second-oldest message that hasn't been received more than three times.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "s"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 10,
+            "x": 0,
+            "y": 10
+          },
+          "id": 12,
+          "options": {
+            "legend": {
+              "calcs": [
+                "mean"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "${DS_CLOUDWATCH}"
+              },
+              "dimensions": {
+                "QueueName": "mocha-madness-CSVTransformer-queue"
+              },
+              "expression": "",
+              "id": "",
+              "label": "",
+              "logGroups": [
+                {
+                  "accountId": "015206308301",
+                  "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVReader:*",
+                  "name": "/aws/lambda/mocha-madness-CSVReader"
+                },
+                {
+                  "accountId": "015206308301",
+                  "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVTransformer:*",
+                  "name": "/aws/lambda/mocha-madness-CSVTransformer"
+                }
+              ],
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "ApproximateAgeOfOldestMessage",
+              "metricQueryType": 0,
+              "namespace": "AWS/SQS",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "A",
+              "region": "default",
+              "sqlExpression": "",
+              "statistic": "Average"
+            },
+            {
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "${DS_CLOUDWATCH}"
+              },
+              "dimensions": {
+                "QueueName": "mocha-madness-RedshiftLoader-queue"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "",
+              "logGroups": [
+                {
+                  "accountId": "015206308301",
+                  "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVReader:*",
+                  "name": "/aws/lambda/mocha-madness-CSVReader"
+                },
+                {
+                  "accountId": "015206308301",
+                  "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVTransformer:*",
+                  "name": "/aws/lambda/mocha-madness-CSVTransformer"
+                }
+              ],
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "ApproximateAgeOfOldestMessage",
+              "metricQueryType": 0,
+              "namespace": "AWS/SQS",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "B",
+              "region": "default",
+              "sqlExpression": "",
+              "statistic": "Average"
+            }
+          ],
+          "title": "SQS - Approximate Age Of Oldest Message",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "${DS_CLOUDWATCH}"
+          },
+          "description": "The size of messages added to a queue.",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 11,
+            "x": 10,
+            "y": 10
+          },
+          "id": 16,
+          "options": {
+            "orientation": "vertical",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "showThresholdLabels": false,
+            "showThresholdMarkers": true
+          },
+          "pluginVersion": "9.5.2",
+          "targets": [
+            {
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "${DS_CLOUDWATCH}"
+              },
+              "dimensions": {
+                "QueueName": "mocha-madness-CSVTransformer-queue"
+              },
+              "expression": "",
+              "id": "",
+              "label": "",
+              "logGroups": [
+                {
+                  "accountId": "015206308301",
+                  "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVReader:*",
+                  "name": "/aws/lambda/mocha-madness-CSVReader"
+                },
+                {
+                  "accountId": "015206308301",
+                  "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVTransformer:*",
+                  "name": "/aws/lambda/mocha-madness-CSVTransformer"
+                }
+              ],
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "SentMessageSize",
+              "metricQueryType": 0,
+              "namespace": "AWS/SQS",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "A",
+              "region": "default",
+              "sqlExpression": "",
+              "statistic": "Average"
+            },
+            {
+              "datasource": {
+                "type": "cloudwatch",
+                "uid": "${DS_CLOUDWATCH}"
+              },
+              "dimensions": {
+                "QueueName": "mocha-madness-RedshiftLoader-queue"
+              },
+              "expression": "",
+              "hide": false,
+              "id": "",
+              "label": "",
+              "logGroups": [
+                {
+                  "accountId": "015206308301",
+                  "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVReader:*",
+                  "name": "/aws/lambda/mocha-madness-CSVReader"
+                },
+                {
+                  "accountId": "015206308301",
+                  "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVTransformer:*",
+                  "name": "/aws/lambda/mocha-madness-CSVTransformer"
+                }
+              ],
+              "matchExact": true,
+              "metricEditorMode": 0,
+              "metricName": "SentMessageSize",
+              "metricQueryType": 0,
+              "namespace": "AWS/SQS",
+              "period": "",
+              "queryMode": "Metrics",
+              "refId": "B",
+              "region": "default",
+              "sqlExpression": "",
+              "statistic": "Average"
+            }
+          ],
+          "title": "SQS - Average Sent-Message Size",
+          "type": "gauge"
+        }
+      ],
+      "title": "SQS Monitoring",
+      "type": "row"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 14,
+      "panels": [],
+      "title": "Lambda Monitoring",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "${DS_CLOUDWATCH}"
+      },
+      "description": "The number of times that your function code is invoked, including successful invocations and invocations that result in a function error. Invocations aren't recorded if the invocation request is throttled or otherwise results in an invocation error. The value of Invocations equals the number of requests billed.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 0,
+        "y": 2
+      },
+      "id": 9,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "timezone": [
+          "Europe/London"
+        ],
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "${DS_CLOUDWATCH}"
+          },
+          "dimensions": {
+            "FunctionName": "mocha-madness-CSVTransformer"
+          },
+          "expression": "",
+          "id": "",
+          "label": "",
+          "logGroups": [],
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "Invocations",
+          "metricQueryType": 0,
+          "namespace": "AWS/Lambda",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "default",
+          "sqlExpression": "",
+          "statistic": "Sum"
+        },
+        {
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "${DS_CLOUDWATCH}"
+          },
+          "dimensions": {
+            "FunctionName": "mocha-madness-RedshiftLoader"
+          },
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "label": "",
+          "logGroups": [
+            {
+              "accountId": "015206308301",
+              "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVReader:*",
+              "name": "/aws/lambda/mocha-madness-CSVReader"
+            },
+            {
+              "accountId": "015206308301",
+              "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVTransformer:*",
+              "name": "/aws/lambda/mocha-madness-CSVTransformer"
+            }
+          ],
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "Invocations",
+          "metricQueryType": 0,
+          "namespace": "AWS/Lambda",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "B",
+          "region": "default",
+          "sqlExpression": "",
+          "statistic": "Sum"
+        }
+      ],
+      "title": "Lambda - Invocations",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "${DS_CLOUDWATCH}"
+      },
+      "description": "The number of invocations that result in a function error. Function errors include exceptions that your code throws and exceptions that the Lambda runtime throws. The runtime returns errors for issues such as timeouts and configuration errors. To calculate the error rate, divide the value of Errors by the value of Invocations. Note that the timestamp on an error metric reflects when the function was invoked, not when the error occurred.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 8,
+        "y": 2
+      },
+      "id": 7,
+      "options": {
+        "legend": {
+          "calcs": [
+            "sum"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "timezone": [
+          "browser"
+        ],
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "${DS_CLOUDWATCH}"
+          },
+          "dimensions": {
+            "FunctionName": "mocha-madness-CSVTransformer"
+          },
+          "expression": "",
+          "id": "",
+          "label": "",
+          "logGroups": [],
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "Errors",
+          "metricQueryType": 0,
+          "namespace": "AWS/Lambda",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "default",
+          "sqlExpression": "",
+          "statistic": "Sum"
+        },
+        {
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "${DS_CLOUDWATCH}"
+          },
+          "dimensions": {
+            "FunctionName": "mocha-madness-RedshiftLoader"
+          },
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "label": "",
+          "logGroups": [
+            {
+              "accountId": "015206308301",
+              "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVReader:*",
+              "name": "/aws/lambda/mocha-madness-CSVReader"
+            },
+            {
+              "accountId": "015206308301",
+              "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVTransformer:*",
+              "name": "/aws/lambda/mocha-madness-CSVTransformer"
+            }
+          ],
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "Errors",
+          "metricQueryType": 0,
+          "namespace": "AWS/Lambda",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "B",
+          "region": "default",
+          "sqlExpression": "",
+          "statistic": "Sum"
+        }
+      ],
+      "title": "Lambda - Errors",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "${DS_CLOUDWATCH}"
+      },
+      "description": "The number of invocation requests that are throttled. When all function instances are processing requests and no concurrency is available to scale up, Lambda rejects additional requests with a TooManyRequestsException error. Throttled requests and other invocation errors don't count as either Invocations or Errors.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": -1,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "mocha-madness-RedshiftLoader"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 0,
+        "y": 11
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "${DS_CLOUDWATCH}"
+          },
+          "dimensions": {
+            "FunctionName": "mocha-madness-CSVTransformer"
+          },
+          "expression": "",
+          "id": "",
+          "label": "",
+          "logGroups": [],
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "Throttles",
+          "metricQueryType": 0,
+          "namespace": "AWS/Lambda",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "default",
+          "sqlExpression": "",
+          "statistic": "Sum"
+        },
+        {
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "${DS_CLOUDWATCH}"
+          },
+          "dimensions": {
+            "FunctionName": "mocha-madness-RedshiftLoader"
+          },
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "label": "",
+          "logGroups": [
+            {
+              "accountId": "015206308301",
+              "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVReader:*",
+              "name": "/aws/lambda/mocha-madness-CSVReader"
+            },
+            {
+              "accountId": "015206308301",
+              "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVTransformer:*",
+              "name": "/aws/lambda/mocha-madness-CSVTransformer"
+            }
+          ],
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "Throttles",
+          "metricQueryType": 0,
+          "namespace": "AWS/Lambda",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "B",
+          "region": "default",
+          "sqlExpression": "",
+          "statistic": "Sum"
+        }
+      ],
+      "title": "Lambda - Throttles",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "cloudwatch",
+        "uid": "${DS_CLOUDWATCH}"
+      },
+      "description": " The amount of time that your function code spends processing an event. The billed duration for an invocation is the value of Duration rounded up to the nearest millisecond.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 8,
+        "y": 11
+      },
+      "id": 5,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "${DS_CLOUDWATCH}"
+          },
+          "dimensions": {
+            "FunctionName": "mocha-madness-CSVTransformer"
+          },
+          "expression": "",
+          "id": "",
+          "label": "",
+          "logGroups": [],
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "Duration",
+          "metricQueryType": 0,
+          "namespace": "AWS/Lambda",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "A",
+          "region": "default",
+          "sqlExpression": "",
+          "statistic": "Maximum"
+        },
+        {
+          "datasource": {
+            "type": "cloudwatch",
+            "uid": "${DS_CLOUDWATCH}"
+          },
+          "dimensions": {
+            "FunctionName": "mocha-madness-RedshiftLoader"
+          },
+          "expression": "",
+          "hide": false,
+          "id": "",
+          "label": "",
+          "logGroups": [
+            {
+              "accountId": "015206308301",
+              "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVReader:*",
+              "name": "/aws/lambda/mocha-madness-CSVReader"
+            },
+            {
+              "accountId": "015206308301",
+              "arn": "arn:aws:logs:eu-west-1:015206308301:log-group:/aws/lambda/mocha-madness-CSVTransformer:*",
+              "name": "/aws/lambda/mocha-madness-CSVTransformer"
+            }
+          ],
+          "matchExact": true,
+          "metricEditorMode": 0,
+          "metricName": "Duration",
+          "metricQueryType": 0,
+          "namespace": "AWS/Lambda",
+          "period": "",
+          "queryMode": "Metrics",
+          "refId": "B",
+          "region": "default",
+          "sqlExpression": "",
+          "statistic": "Maximum"
+        }
+      ],
+      "title": "Lambda - Duration",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "15m",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Monitoring Dashboard - Mocha Madness Cafe",
+  "uid": "e908f95a-d113-4e6f-8325-9c8d2c408ccf",
+  "version": 51,
+  "weekStart": ""
+}

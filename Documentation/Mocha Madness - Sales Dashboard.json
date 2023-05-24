@@ -1,0 +1,951 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_AMAZON_REDSHIFT",
+      "label": "Amazon Redshift",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "grafana-redshift-datasource",
+      "pluginName": "Amazon Redshift"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "9.5.2"
+    },
+    {
+      "type": "datasource",
+      "id": "grafana-redshift-datasource",
+      "name": "Amazon Redshift",
+      "version": "1.8.4"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "text",
+      "name": "Text",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "This dashboard contains sales information for all branches ",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "panels": [],
+      "title": "Mocha Madness Daily Report",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "grafana-redshift-datasource",
+        "uid": "${DS_AMAZON_REDSHIFT}"
+      },
+      "description": "Use the date function to interact with this dashboard",
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 2,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "# Mocha Madness - Company Sales Report\n\n",
+        "mode": "markdown"
+      },
+      "pluginVersion": "9.5.2",
+      "title": "Dashboard",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "grafana-redshift-datasource",
+        "uid": "${DS_AMAZON_REDSHIFT}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-blue",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 0,
+        "y": 4
+      },
+      "id": 18,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-redshift-datasource",
+            "uid": "${DS_AMAZON_REDSHIFT}"
+          },
+          "rawSQL": "select count(distinct branch_name) as total_branches\r\nfrom branches;",
+          "refId": "A",
+          "schema": "public"
+        }
+      ],
+      "title": "Toal number of stores",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-redshift-datasource",
+        "uid": "${DS_AMAZON_REDSHIFT}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-blue",
+                "value": null
+              },
+              {
+                "color": "dark-blue",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 4,
+        "y": 4
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-redshift-datasource",
+            "uid": "${DS_AMAZON_REDSHIFT}"
+          },
+          "rawSQL": "SELECT COUNT(DISTINCT product_id) FROM products ",
+          "refId": "A"
+        }
+      ],
+      "title": "Number of products available",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-redshift-datasource",
+        "uid": "${DS_AMAZON_REDSHIFT}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-red",
+                "value": 0
+              },
+              {
+                "color": "orange",
+                "value": 60
+              },
+              {
+                "color": "green",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 8,
+        "y": 4
+      },
+      "id": 3,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-redshift-datasource",
+            "uid": "${DS_AMAZON_REDSHIFT}"
+          },
+          "rawSQL": "SELECT COUNT(DISTINCT b.branch_id)\r\nFROM Branches b\r\nJOIN Transactions t ON b.branch_id = t.branch_id\r\nWHERE $__timeFilter(t.transaction_date);",
+          "refId": "A",
+          "schema": "public"
+        }
+      ],
+      "title": "Number of store reports",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-redshift-datasource",
+        "uid": "${DS_AMAZON_REDSHIFT}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-blue",
+                "value": 0
+              },
+              {
+                "color": "dark-yellow",
+                "value": 1
+              },
+              {
+                "color": "dark-red",
+                "value": 25
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 12,
+        "y": 4
+      },
+      "id": 12,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-redshift-datasource",
+            "uid": "${DS_AMAZON_REDSHIFT}"
+          },
+          "rawSQL": "SELECT COUNT(*) as branches_without_data\r\nFROM branches\r\nWHERE branch_id NOT IN (\r\n    SELECT DISTINCT branch_id\r\n    FROM transactions\r\n    WHERE $__timeFilter(transactions.transaction_date)\r\n);\r\n",
+          "refId": "A",
+          "schema": "public"
+        }
+      ],
+      "title": "Number of missing store reports",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-redshift-datasource",
+        "uid": "${DS_AMAZON_REDSHIFT}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-red",
+                "value": 0
+              },
+              {
+                "color": "green",
+                "value": 1000
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 16,
+        "y": 4
+      },
+      "id": 9,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-redshift-datasource",
+            "uid": "${DS_AMAZON_REDSHIFT}"
+          },
+          "rawSQL": "SELECT COALESCE(SUM(orders.order_qty), 0) AS total_sales\r\nFROM branches\r\nJOIN transactions ON branches.branch_id = transactions.branch_id\r\nJOIN orders ON transactions.transaction_id = orders.transaction_id\r\nWHERE $__timeFilter(transactions.transaction_date);",
+          "refId": "A",
+          "schema": "public"
+        }
+      ],
+      "title": "Number of products sold",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-redshift-datasource",
+        "uid": "${DS_AMAZON_REDSHIFT}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-red",
+                "value": 0
+              },
+              {
+                "color": "dark-orange",
+                "value": 10000
+              },
+              {
+                "color": "green",
+                "value": 20000
+              }
+            ]
+          },
+          "unit": "currencyGBP"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 20,
+        "y": 4
+      },
+      "id": 8,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-redshift-datasource",
+            "uid": "${DS_AMAZON_REDSHIFT}"
+          },
+          "rawSQL": "SELECT COALESCE(SUM(orders.order_qty * products.product_price), 0) AS total_sales\r\nFROM branches\r\nJOIN transactions ON branches.branch_id = transactions.branch_id\r\nJOIN orders ON transactions.transaction_id = orders.transaction_id\r\nJOIN products ON orders.product_id = products.product_id\r\nWHERE $__timeFilter(transactions.transaction_date);\r\n",
+          "refId": "A",
+          "schema": "public"
+        }
+      ],
+      "title": "Total Sale",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-redshift-datasource",
+        "uid": "${DS_AMAZON_REDSHIFT}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": false,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "currencyGBP"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 17,
+        "w": 8,
+        "x": 0,
+        "y": 9
+      },
+      "id": 5,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": false
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-redshift-datasource",
+            "uid": "${DS_AMAZON_REDSHIFT}"
+          },
+          "rawSQL": "SELECT b.branch_name, SUM(o.order_qty * p.product_price) AS total_sales\r\nFROM Branches b\r\nJOIN Transactions t ON b.branch_id = t.branch_id\r\nJOIN Orders o ON t.transaction_id = o.transaction_id\r\nJOIN Products p ON o.product_id = p.product_id\r\nWHERE $__timeFilter(t.transaction_date) \r\nGROUP BY b.branch_name\r\nORDER BY total_sales DESC;",
+          "refId": "A",
+          "schema": "public"
+        }
+      ],
+      "title": "Top store by Total Sales",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-redshift-datasource",
+        "uid": "${DS_AMAZON_REDSHIFT}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": false,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "currencyGBP"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 17,
+        "w": 8,
+        "x": 8,
+        "y": 9
+      },
+      "id": 7,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": false
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-redshift-datasource",
+            "uid": "${DS_AMAZON_REDSHIFT}"
+          },
+          "rawSQL": "SELECT p.product_name, COALESCE(SUM(o.order_qty), 0) AS total_qty\r\nFROM products p\r\nJOIN orders o ON p.product_id = o.product_id\r\nJOIN transactions t ON o.transaction_id = t.transaction_id\r\nWHERE $__timeFilter(t.transaction_date)\r\nGROUP BY p.product_name\r\nORDER BY total_qty DESC;",
+          "refId": "A",
+          "schema": "public"
+        }
+      ],
+      "title": "Top selling products",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-redshift-datasource",
+        "uid": "${DS_AMAZON_REDSHIFT}"
+      },
+      "description": "The time is presented in a 24hr clock format, for example 10 equals 10am",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": " : 00"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 17,
+        "w": 8,
+        "x": 16,
+        "y": 9
+      },
+      "id": 10,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": true,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": false
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-redshift-datasource",
+            "uid": "${DS_AMAZON_REDSHIFT}"
+          },
+          "rawSQL": "WITH branch_hour_transactions AS (\r\n  SELECT branches.branch_name,\r\n         EXTRACT(HOUR FROM transactions.transaction_time) AS hour,\r\n         COUNT(*) AS transaction_count\r\n  FROM branches\r\n  JOIN transactions ON branches.branch_id = transactions.branch_id\r\n  WHERE $__timeFilter(transactions.transaction_date)\r\n  GROUP BY branches.branch_name, EXTRACT(HOUR FROM transactions.transaction_time)\r\n),\r\nranked_hours AS (\r\n  SELECT branch_name,\r\n         hour,\r\n         RANK() OVER (PARTITION BY branch_name ORDER BY transaction_count DESC) AS hour_rank\r\n  FROM branch_hour_transactions\r\n)\r\nSELECT branch_name, hour AS busiest_hour\r\nFROM ranked_hours\r\nWHERE hour_rank = 1;",
+          "refId": "A",
+          "schema": "public"
+        }
+      ],
+      "title": "Busiest time per store",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-redshift-datasource",
+        "uid": "${DS_AMAZON_REDSHIFT}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "dark-red",
+                "value": 0
+              },
+              {
+                "color": "dark-yellow",
+                "value": 1000
+              },
+              {
+                "color": "green",
+                "value": 2500
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 3,
+        "y": 26
+      },
+      "id": 13,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-redshift-datasource",
+            "uid": "${DS_AMAZON_REDSHIFT}"
+          },
+          "rawSQL": "SELECT COUNT(*) as card_transactions\r\nFROM transactions\r\nJOIN payments ON transactions.payment_method_id = payments.payment_method_id\r\nWHERE payments.payment_method_name = 'CARD' AND $__timeFilter(transactions.transaction_date);",
+          "refId": "A",
+          "schema": "public"
+        }
+      ],
+      "title": "Number of Card transactions",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-redshift-datasource",
+        "uid": "${DS_AMAZON_REDSHIFT}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "orange",
+                "value": 0
+              },
+              {
+                "color": "green",
+                "value": 1500
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 10,
+        "y": 26
+      },
+      "id": 14,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-redshift-datasource",
+            "uid": "${DS_AMAZON_REDSHIFT}"
+          },
+          "rawSQL": "SELECT COUNT(*) as card_transactions\r\nFROM transactions\r\nJOIN payments ON transactions.payment_method_id = payments.payment_method_id\r\nWHERE payments.payment_method_name = 'CASH' AND $__timeFilter(transactions.transaction_date);",
+          "refId": "A"
+        }
+      ],
+      "title": "Number of Cash Transactions",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-redshift-datasource",
+        "uid": "${DS_AMAZON_REDSHIFT}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "dark-red",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 2500
+              },
+              {
+                "color": "green",
+                "value": 5000
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 4,
+        "x": 17,
+        "y": 26
+      },
+      "id": 15,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-redshift-datasource",
+            "uid": "${DS_AMAZON_REDSHIFT}"
+          },
+          "rawSQL": "SELECT COUNT(transaction_id)\r\nFROM transactions\r\nWHERE $__timeFilter(transactions.transaction_date);",
+          "refId": "A",
+          "schema": "public"
+        }
+      ],
+      "title": "Total number of Orders",
+      "type": "stat"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Mocha Madness - Sales Dashboard",
+  "uid": "ef5ac17a-449f-4bff-a815-b001d2ee7a82",
+  "version": 22,
+  "weekStart": ""
+}

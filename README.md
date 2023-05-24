@@ -45,6 +45,32 @@ Developers
 Your browser does not support the video tag.
 </video>
 
+## Grafana Sales Dashboard
+
+- After CSV files go through our ETL pipeline, the tranformed files are then stored in a Redshift DB
+- We created a dashboard to enable the our client to view relevant information on the company's performance  
+
+![Sales Dashboard](/Documentation/Grafana-sales.png)
+- You can find JSON File for recreating this dashboard
+  ```
+  Documentation/Mocha Madness - Sales Dashboard.json
+  ```
+## Grafana Monitoing Dashboard
+By querying log metrics in AWS Cloudwatch, we created the monitoring dashboard.
+### AWS Lambda Function
+- We monitor the number of invocations, throttle, errors, and duration.
+- When there are numbers in errors, we go investigate the cause of the error in Cloudwatch and fix the issue. 
+![Monitoring Lambda Dashboard](/Documentation/monitoring_dashboard-lambda.png)
+
+### AWS SQS
+- We monitor the discrepancy in numbers of messgages sent, reiceived, and deleted message. 
+- We monitor the message number in Dead Letter Queues, which were received by consumers more than 10 times, but weren't deleted as they weren't successfully processed in the consumers.
+![Monitoring SQS Dashboard](/Documentation/monitoring_dashboard-SQS.png)
+- You can find JSON File for recreating this dashboard
+  ```
+  Documentation/Mocha Madness - Sales Dashboard.json
+  ```
+
 ### Some basic Git commands are:
 ```
 git status
@@ -123,10 +149,3 @@ python -m main_files.table_insertion_payment.py
 python -m main_files.table_insertion_orders.py
 
 ```
-
-## Grafana Sales Dashboard
-
-- After CSV files go through our ETL pipeline, the tranformed files are then stored in a Redshift DB
-- We created a dashboard to enable the our client to view relevant information on the company's performance  
-
-![Sales Dashboard](/Documentation/Grafana-sales.png)
