@@ -36,16 +36,29 @@ Developers
 - Rishi Ravindran  [Linkedin](https://www.linkedin.com/in/rishiram-ravindran-a00127238/) | [Github](https://github.com/Rishi06R)<br>
 
 
+## AWS Data Pipeline Workflow
+<img src="./Documentation/data_pipeline_worflow.png" width=800 alt="AWS Data Pipeline Workflow"></image>
+
+## Data Transformation and Loading Process
+<video width="800" height="600" controls>
+  <source src="Documentation/data_transformation_loading.mp4.mov" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
 ### Some basic Git commands are:
 ```
 git status
 git add
 git commit
+
 ```
-## Initial Setup:
+
+
+
+## Local Running
+### 1. Initial Setup:
 ----------
-### Run Bash Script file:
+#### Run Bash Script file:
 After git clone this repository, you can run the following bash script file for initial setup (docker compose, creation of a virtual environment, package installation, and activation of a virtual environment).
 
 ```
@@ -53,27 +66,27 @@ chmod +x init.sh
 ./init.sh
 ```
 
-### OR Run Command Line Step by Step
-**1. Commands to setup docker:**
+#### OR Run Command Line Step by Step
+**1) Commands to setup docker:**
 ```
 cd database
 docker compose up -d
 ```
 
-**2. Creating venv:**
+**2) Creating venv:**
 ```
 Windows - py -3.10 -m venv .venv
 Mac - python3.10 -m venv .venv
 ```
 
-**3. Activating venv:**
+**3) Activating venv:**
 ```
 Windows - .venv/Scripts/Activate.bat
 Mac - source .venv/bin/activate
 ``` 
 
 
-**4. Installing packages from requirments:**
+**4) Installing packages from requirments:**
 ```
 cd main_files
 pip install -r requirements.txt
@@ -81,10 +94,34 @@ pip install -r requirements.txt
 
 Note: if you see an error installing the package, `psycopg2==2.9.6`, please open `requirements.txt` file and replace it with `psycopg-binary` and re-run `pip install -r requirements.txt`.
 
-## Command to run a file as module in python:
+### 2. Working with Database:
+----------
+* Command to run a file as module in python:
 ```
 Windows - py -m <folder name>.<filename only without extension i.e .py>
 Mac - python -m m<folder name>.<filename only without extension i.e .py>
+
+```
+### Table Creation
+```
+Windows - py -m main_files.table_creation.py
+Mac - python -m main_files.table_creation.py
+```
+
+### Loading Data to Tables:
+```
+Windows
+py -m main_files.table_insertion_product.py
+py -m main_files.table_insertion_branch.py
+py -m main_files.table_insertion_payment.py
+py -m main_files.table_insertion_orders.py
+
+Mac
+python -m main_files.table_insertion_product.py
+python -m main_files.table_insertion_branch.py
+python -m main_files.table_insertion_payment.py
+python -m main_files.table_insertion_orders.py
+
 ```
 
 ## Grafana Sales Dashboard
