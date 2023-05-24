@@ -40,10 +40,10 @@ Developers
 <img src="./Documentation/data_pipeline_worflow.png" width=800 alt="AWS Data Pipeline Workflow"></image>
 
 ## Data Transformation and Loading Process
-<video width="800" height="600" controls>
-  <source src="Documentation/data_transformation_loading.mp4.mov" type="video/mp4">
-Your browser does not support the video tag.
-</video>
+
+https://github.com/generation-de-lon9/moccha-madness-final-project/assets/61944418/26dd063b-d7bc-4a5d-8db9-c699e0a009cc
+
+
 
 ### Some basic Git commands are:
 ```
