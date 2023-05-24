@@ -39,11 +39,38 @@ Developers
 ## AWS Data Pipeline Workflow
 <img src="./Documentation/data_pipeline_worflow.png" width=800 alt="AWS Data Pipeline Workflow"></image>
 
-## Data Transformation and Loading Process
-<video width="800" height="600" controls>
-  <source src="Documentation/data_transformation_loading.mp4.mov" type="video/mp4">
-Your browser does not support the video tag.
-</video>
+## Data ETL Process Walk-through
+
+
+https://github.com/generation-de-lon9/moccha-madness-final-project/assets/61944418/c1f6cf4f-ea63-4a99-b9a7-5fa1a852380f
+
+
+
+## Grafana Sales Dashboard
+
+- After CSV files go through our ETL pipeline, the tranformed files are then stored in a Redshift DB
+- We created a dashboard to enable the our client to view relevant information on the company's performance  
+
+![Sales Dashboard](/Documentation/Grafana-sales.png)
+- You can find JSON File for recreating this dashboard
+  ```
+  Documentation/Mocha Madness - Sales Dashboard.json
+  ```
+## Grafana Monitoing Dashboard
+By querying log metrics in AWS Cloudwatch, we created the monitoring dashboard.
+### AWS Lambda Function
+- We monitor the number of invocations, throttle, errors, and duration.
+- When there are numbers in errors, we go investigate the cause of the error in Cloudwatch and fix the issue. 
+![Monitoring Lambda Dashboard](/Documentation/monitoring_dashboard-lambda.png)
+
+### AWS SQS
+- We monitor the discrepancy in numbers of messgages sent, reiceived, and deleted message. 
+- We monitor the message number in Dead Letter Queues, which were received by consumers more than 10 times, but weren't deleted as they weren't successfully processed in the consumers.
+![Monitoring SQS Dashboard](/Documentation/monitoring_dashboard-SQS.png)
+- You can find JSON File for recreating this dashboard
+  ```
+  Documentation/Mocha Madness - Sales Dashboard.json
+  ```
 
 ## Grafana Sales Dashboard
 
@@ -149,3 +176,5 @@ python -m main_files.table_insertion_payment.py
 python -m main_files.table_insertion_orders.py
 
 ```
+
+
