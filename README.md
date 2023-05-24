@@ -90,7 +90,7 @@ By querying log metrics in AWS Cloudwatch, we created the monitoring dashboard.
 ![Monitoring Lambda Dashboard](/Documentation/monitoring_dashboard-lambda.png)
 
 ### AWS SQS
-- We monitor the discrepancy in numbers of messgages sent, reiceived, and deleted message. 
+- We monitor the discrepancy in numbers of messages sent, reiceived, and deleted message. 
 - We monitor the message number in Dead Letter Queues, which were received by consumers more than 10 times, but weren't deleted as they weren't successfully processed in the consumers.
 ![Monitoring SQS Dashboard](/Documentation/monitoring_dashboard-SQS.png)
 - You can find JSON File for recreating this dashboard
