@@ -1,7 +1,7 @@
 # moccha-madness-final-project
 
 ## About
-This is a software for a client, cafe business owner with multiple offline stores. The client's exisiting software generates daily sales data at a single store and does not provide compiled data of all stores to provide the overview of whole business performance and makes it hard to draw valuable insight such as how to target customers and the best-selling products. This software will deliver ETL pipeline; extracting sales data from client's source, transforming data, and loading on client's data warehouse. 
+This software is designed for a cafe business owner with multiple offline stores. The client’s existing software only generates daily sales data for individual stores and does not provide a consolidated view of the entire business’s performance. This makes it difficult to gain valuable insights, such as customer targeting and best-selling products. Our software solves this problem by delivering an ETL pipeline that extracts sales data from the client’s sources, transforms it, and loads it into the client’s data warehouse, providing a comprehensive overview of the business’s performance.
 <br>
 > **Current Client Setup:**
 - CSV file for each branch
@@ -64,36 +64,12 @@ By querying log metrics in AWS Cloudwatch, we created the monitoring dashboard.
 ![Monitoring Lambda Dashboard](/Documentation/monitoring_dashboard-lambda.png)
 
 ### AWS SQS
-- We monitor the discrepancy in numbers of messgages sent, reiceived, and deleted message. 
-- We monitor the message number in Dead Letter Queues, which were received by consumers more than 10 times, but weren't deleted as they weren't successfully processed in the consumers.
+- We keep track of any discrepancies in the number of messages sent, received, and deleted.
+- We also monitor the number of messages in Dead Letter Queues that have been received by consumers more than 10 times but were not successfully processed and therefore not deleted.
 ![Monitoring SQS Dashboard](/Documentation/monitoring_dashboard-SQS.png)
-- You can find JSON File for recreating this dashboard
-  ```
-  Documentation/Mocha Madness - Sales Dashboard.json
-  ```
 
-## Grafana Sales Dashboard
-
-- After CSV files go through our ETL pipeline, the tranformed files are then stored in a Redshift DB
-- We created a dashboard to enable the our client to view relevant information on the company's performance  
-
-![Sales Dashboard](/Documentation/Grafana-sales.png)
-- You can find JSON File for recreating this dashboard
-  ```
-  Documentation/Mocha Madness - Sales Dashboard.json
-  ```
-## Grafana Monitoing Dashboard
-By querying log metrics in AWS Cloudwatch, we created the monitoring dashboard.
-### AWS Lambda Function
-- We monitor the number of invocations, throttle, errors, and duration.
-- When there are numbers in errors, we go investigate the cause of the error in Cloudwatch and fix the issue. 
-![Monitoring Lambda Dashboard](/Documentation/monitoring_dashboard-lambda.png)
-
-### AWS SQS
-- We monitor the discrepancy in numbers of messages sent, reiceived, and deleted message. 
-- We monitor the message number in Dead Letter Queues, which were received by consumers more than 10 times, but weren't deleted as they weren't successfully processed in the consumers.
-![Monitoring SQS Dashboard](/Documentation/monitoring_dashboard-SQS.png)
-- You can find JSON File for recreating this dashboard
+You can find JSON File for recreating this dashboard
+- 
   ```
   Documentation/Mocha Madness - Sales Dashboard.json
   ```
