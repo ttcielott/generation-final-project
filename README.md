@@ -39,9 +39,10 @@ Developers
 ## AWS Data Pipeline Workflow
 <img src="./Documentation/data_pipeline_worflow.png" width=800 alt="AWS Data Pipeline Workflow"></image>
 
-## Data Transformation and Loading Process
+## Data ETL Process Walk-through
 
-https://github.com/generation-de-lon9/moccha-madness-final-project/assets/61944418/26dd063b-d7bc-4a5d-8db9-c699e0a009cc
+
+https://github.com/generation-de-lon9/moccha-madness-final-project/assets/61944418/c1f6cf4f-ea63-4a99-b9a7-5fa1a852380f
 
 
 
