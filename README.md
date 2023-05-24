@@ -68,9 +68,7 @@ By querying log metrics in AWS Cloudwatch, we created the monitoring dashboard.
 - We keep track of any discrepancies in the number of messages sent, received, and deleted.
 - We also monitor the number of messages in Dead Letter Queues that have been received by consumers more than 10 times but were not successfully processed and therefore not deleted.
 ![Monitoring SQS Dashboard](/Documentation/monitoring_dashboard-SQS.png)
-
-You can find JSON File for recreating this dashboard
-- 
+- You can find JSON File for recreating this dashboard
   ```
   Documentation/Mocha Madness - Sales Dashboard.json
   ```
