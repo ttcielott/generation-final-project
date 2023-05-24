@@ -44,7 +44,8 @@ Developers
 
 https://github.com/generation-de-lon9/moccha-madness-final-project/assets/61944418/c1f6cf4f-ea63-4a99-b9a7-5fa1a852380f
 
-
+## Database Schema
+<img src="./Documentation/database_schema.png" width=800 alt="AWS_Redshift_database_schema"></image>
 
 ## Grafana Sales Dashboard
 
