@@ -40,9 +40,8 @@ Developers
 <img src="./Documentation/data_pipeline_worflow.png" width=800 alt="AWS Data Pipeline Workflow"></image>
 
 ## Data ETL Process Walk-through
+https://github.com/ttcielott/generation-final-project/assets/61944418/2dec3935-5688-4212-b08b-2ea5f2d36b9e
 
-
-https://github.com/generation-de-lon9/moccha-madness-final-project/assets/61944418/c1f6cf4f-ea63-4a99-b9a7-5fa1a852380f
 
 ## Database Schema
 <img src="./Documentation/database_schema.png" width=800 alt="AWS_Redshift_database_schema"></image>
