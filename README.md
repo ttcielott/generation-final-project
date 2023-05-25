@@ -59,6 +59,10 @@ https://github.com/generation-de-lon9/moccha-madness-final-project/assets/619444
   ```
 ## Grafana Monitoing Dashboard
 By querying log metrics in AWS Cloudwatch, we created the monitoring dashboard.
+- In regards to how to set up grafana, please refer to the following document
+  ```
+  Documentation/final-project-grafana-setup.md
+  ```
 ### AWS Lambda Function
 - We monitor the number of invocations, throttle, errors, and duration.
 - When there are numbers in errors, we go investigate the cause of the error in Cloudwatch and fix the issue. 
